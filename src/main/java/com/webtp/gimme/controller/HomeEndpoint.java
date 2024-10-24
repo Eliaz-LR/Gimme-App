@@ -1,0 +1,15 @@
+package com.webtp.gimme.controller;
+
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class HomeEndpoint {
+
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
+
+}
