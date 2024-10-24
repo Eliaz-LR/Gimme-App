@@ -16,6 +16,10 @@ public class OfferService {
         return offerRepository.findAll();
     }
 
+    public List<Offer> getOffersByName(String name) {
+        return offerRepository.findByName(name);
+    }
+
     public void createOffer(Offer offer) {
         offerRepository.save(offer);
     }

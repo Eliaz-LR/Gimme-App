@@ -18,4 +18,14 @@ public class OfferEndpoint {
         return offerService.getOffers();
     }
 
+    @GetMapping("/offers")
+    public List<Offer> offers(@RequestParam(value = "search") String search) {
+        return offerService.getOffersByName(search);
+    }
+
+    @PostMapping("/offers")
+    public String offersPost(@RequestBody Offer offer) {
+        offerService.createOffer(offer);
+        return "Offre créée";
+    }
 }
