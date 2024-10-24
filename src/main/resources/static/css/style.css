@@ -1,14 +1,125 @@
+/* Style général */
 body {
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #F4F6F7;  /* Arrière-plan beige clair */
+    color: #2C2C2C; /* Texte en gris foncé */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-h1 {
-    color: #333;
-    text-align: center;
+/* Bandeau supérieur (navbar) */
+.navbar {
+    background-color: #D0D3D4; /* Gris clair */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 100;
 }
 
-p {
+.navbar .logo h1 {
+    margin: 0;
+    font-size: 26px;
+    color: #2C2C2C; /* Texte en gris foncé */
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.auth-buttons .btn {
+    background-color: #FF6F61;  /* Corail doux */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.auth-buttons .btn:hover {
+    background-color: #E74C3C;  /* Corail plus foncé au survol */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Section centrale avec le champ de recherche */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    font-size: 1.2rem;
+    flex-grow: 1;
+    margin-top: 120px; /* Pour compenser la navbar fixe */
+    padding: 20px;
+    height: calc(100vh - 160px); /* Ajustement de la hauteur sans la navbar et le footer */
+}
+
+.hero-text h2 {
+    font-size: 36px;
+    color: #2C2C2C; /* Texte en gris foncé */
+    margin-bottom: 40px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtil effet d'ombre */
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 50px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.search-box input {
+    padding: 15px;
+    font-size: 18px;
+    width: 350px;
+    border: none;
+    border-radius: 50px;
+    outline: none;
+}
+
+.search-btn {
+    padding: 15px 20px;
+    background-color: #FF6F61;  /* Corail doux pour le bouton de recherche */
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.search-btn:hover {
+    background-color: #E74C3C;  /* Corail légèrement plus foncé au survol */
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #D0D3D4;  /* Footer gris clair */
+    color: #2C2C2C; /* Texte en gris foncé */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
