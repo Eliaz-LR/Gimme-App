@@ -13,7 +13,7 @@ public class Hello {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     private String name;
 }
