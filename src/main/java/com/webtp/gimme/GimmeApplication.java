@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class GimmeApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(GimmeApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(GimmeApplication.class, args);
+    }
 
 }

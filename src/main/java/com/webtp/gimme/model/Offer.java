@@ -11,11 +11,11 @@ import lombok.Setter;
 @Setter
 public class Offer {
 
-  @Id
-  @GeneratedValue
-  private int id;
+    @Id
+    @GeneratedValue
+    private int id;
 
-  private String name;
+    private String name;
 
-  private String description;
+    private String description;
 }

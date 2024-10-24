@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class OfferService {
 
-  @Autowired
-  private OfferRepository offerRepository;
+    @Autowired
+    private OfferRepository offerRepository;
 
-  public List<Offer> getOffers() {
-    return offerRepository.findAll();
-  }
+    public List<Offer> getOffers() {
+        return offerRepository.findAll();
+    }
 
-  public void createOffer(Offer offer) {
-    offerRepository.save(offer);
-  }
+    public void createOffer(Offer offer) {
+        offerRepository.save(offer);
+    }
 }
