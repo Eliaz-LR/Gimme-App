@@ -9,21 +9,22 @@ import com.webtp.gimme.model.Offer;
 import com.webtp.gimme.service.OfferService;
 
 @RestController
+@RequestMapping("/offers")
 public class OfferEndpoint {
     @Autowired
     private OfferService offerService;
 
-    @GetMapping("/offers")
-    public List<Offer> offers() {
+    @GetMapping
+    public List<Offer> getAllOffers() {
         return offerService.getOffers();
     }
 
-    // @GetMapping("/offers")
-    // public List<Offer> offers(@RequestParam(value = "search") String search) {
-    // return offerService.getOffersByName(search);
-    // }
+    @GetMapping(params = "search")
+    public List<Offer> searchOffer(@RequestParam(value = "search") String search) {
+        return offerService.getOffersByName(search);
+    }
 
-    @PostMapping("/offers")
+    @PostMapping
     public String offersPost(@RequestBody Offer offer) {
         offerService.createOffer(offer);
         return "Offre créée";
