@@ -1,0 +1,120 @@
+:root {
+    --primary-color: #2D2A30; /* Noir légèrement brisé */
+    --secondary-color: #B09E77; /* Beige doré */
+    --accent-color: #C93D4B; /* Rouge vif */
+    --background-color: #F7F6F2; /* Blanc cassé */
+    --text-color: #4A4A4A; /* Gris moyen */
+}
+
+/* Style général */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: var(--background-color);
+    color: var(--text-color);
+    height: 100vh; /* Remplit la hauteur de la vue */
+    display: flex;
+    flex-direction: column; /* Colonne pour le header, contenu et footer */
+}
+
+/* Header */
+.navbar {
+    background-color: var(--primary-color);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 98%;
+    top: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: auto;
+}
+
+.logo-img {
+    height: 40px;
+    width: 40px;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 26px;
+    color: #FFFFFF; /* Titre en blanc */
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--background-color);
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--accent-color);
+}
+
+/* Boutons d'authentification */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.auth-buttons .btn {
+    background-color: var(--accent-color);
+    color: var(--background-color);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.auth-buttons .btn:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: var(--background-color);
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
+}

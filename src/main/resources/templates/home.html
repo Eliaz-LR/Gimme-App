@@ -3,23 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/home.css">
     <title>Gimme - Plateforme de Don</title>
 </head>
 <body>
 
-<!-- Bandeau supérieur -->
-<header class="navbar">
-    <div class="logo">
-        <h1>Gimme</h1>
-    </div>
-    <div class="auth-buttons">
-        <button class="btn login-btn">Login</button>
-        <button class="btn register-btn">Register</button>
-    </div>
-</header>
+<div th:replace="fragments/header :: header"></div>
 
-<!-- Section centrale avec le champ de recherche -->
 <main class="main-content">
     <div class="hero-text">
         <h2>Trouvez ce que vous cherchez<br>ou donnez ce dont vous n'avez plus besoin</h2>
@@ -32,10 +23,7 @@
     </div>
 </main>
 
-<!-- Footer -->
-<footer>
-    <p>© 2024 Gimme - Plateforme de don</p>
-</footer>
+<div th:replace="fragments/footer :: footer"></div>
 
 </body>
 </html>

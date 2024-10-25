@@ -1,0 +1,62 @@
+/* Section d'inscription */
+.register-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-grow: 1;
+    padding: 60px 20px; /* Espacement pour le contenu */
+}
+
+.register-content h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: var(--primary-color); /* Couleur primaire pour le titre */
+}
+
+.register-form {
+    background-color: var(--background-color); /* Fond clair */
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px; /* Espacement entre les champs */
+    text-align: left; /* Aligne le texte à gauche */
+}
+
+.form-group label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: block; /* Pour que le label prenne toute la largeur */
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 4px; /* Coins arrondis */
+    outline: none; /* Retire l'outline par défaut */
+    transition: border 0.3s ease; /* Transition pour le focus */
+}
+
+.form-group input:focus {
+    border-color: var(--accent-color); /* Couleur d'accent au focus */
+}
+
+.btn {
+    background-color: var(--accent-color); /* Couleur d'accent pour le bouton */
+    color: #ffffff; /* Texte en blanc */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #C93D4B; /* Rouge vif au survol */
+}
