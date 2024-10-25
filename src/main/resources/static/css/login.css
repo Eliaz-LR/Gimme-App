@@ -10,7 +10,7 @@
 
 .login-content h2 {
     font-size: 32px;
-    margin-bottom: 30px;
+    margin: 60px 0 30px; /* Ajoute un margin-top de 60px */
     color: var(--primary-color);
 }
 

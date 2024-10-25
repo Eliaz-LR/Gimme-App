@@ -16,12 +16,14 @@ body {
     height: 100vh; /* Remplit la hauteur de la vue */
     display: flex;
     flex-direction: column; /* Colonne pour le header, contenu et footer */
+    overflow-x: hidden;
 }
 
 /* Header */
 .navbar {
     background-color: var(--primary-color);
-    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     display: flex;
     align-items: center;
     position: fixed;
@@ -38,15 +40,11 @@ body {
     margin-right: auto;
 }
 
-.logo-img {
-    height: 40px;
-    width: 40px;
-}
-
-.logo h1 {
+.logo h1 a {
     margin: 0;
     font-size: 26px;
     color: #FFFFFF; /* Titre en blanc */
+    text-decoration: none;
 }
 
 .nav-links {
@@ -81,6 +79,7 @@ body {
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 .auth-buttons .btn:hover {
@@ -92,7 +91,7 @@ body {
 /* Footer */
 .footer {
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     background-color: var(--primary-color);
     color: var(--background-color);
     width: 100%;
