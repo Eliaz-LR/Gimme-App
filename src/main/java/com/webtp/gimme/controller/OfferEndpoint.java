@@ -32,8 +32,8 @@ public class OfferEndpoint {
         return "Offre créée";
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> deleteOffer(@RequestParam(value = "id") Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteOffer(@PathVariable Long id) {
         boolean deleted = offerService.deleteOfferByID(id);
         if (deleted) {
             return ResponseEntity.ok("Offer deleted successfully");
