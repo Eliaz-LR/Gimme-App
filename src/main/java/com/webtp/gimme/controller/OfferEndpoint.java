@@ -26,6 +26,11 @@ public class OfferEndpoint {
         return offerService.getOffersByName(search);
     }
 
+    @GetMapping(params = "category")
+    public List<Offer> getOfferByCategory(@RequestParam(value = "category") Offer.Category category) {
+        return offerService.getOffersByCategory(category);
+    }
+
     @PostMapping
     public String offersPost(@RequestBody Offer offer) {
         offerService.createOffer(offer);
