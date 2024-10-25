@@ -22,6 +22,10 @@ public class OfferService {
         return offerRepository.findByName(name);
     }
 
+    public List<Offer> getOffersByCategory(Offer.Category category) {
+        return offerRepository.findByCategory(category);
+    }
+
     public void createOffer(Offer offer) {
         offerRepository.save(offer);
     }

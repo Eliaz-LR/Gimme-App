@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OfferRepository extends JpaRepository<Offer, Long> {
     List<Offer> findByName(String name);
+
+    List<Offer> findByCategory(Offer.Category category);
 }
