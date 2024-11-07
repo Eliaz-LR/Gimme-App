@@ -1,5 +1,6 @@
 package com.webtp.gimme.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +45,9 @@ public class OfferEndpoint {
     }
 
     @PostMapping
-    public String offersPost(@RequestBody Offer offer) {
+    public ResponseEntity<String> offersPost(@RequestBody Offer offer) {
         offerService.createOffer(offer);
-        return "Offre créée";
+        return ResponseEntity.created(URI.create("/offers/" + offer.getId())).build();
     }
 
     @DeleteMapping("/{id}")
