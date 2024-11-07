@@ -24,8 +24,13 @@ public class OfferEndpoint {
     }
 
     @GetMapping("/{id}")
-    public Offer getOffer(@PathVariable String id) {
-        return offerService.getOfferByID(UUID.fromString(id));
+    public ResponseEntity<Offer> getOffer(@PathVariable UUID id) {
+        Offer offer = offerService.getOfferByID(id);
+        if (offer != null) {
+            return ResponseEntity.ok(offer);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @GetMapping(params = "search")
