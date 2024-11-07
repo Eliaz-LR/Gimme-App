@@ -1,6 +1,6 @@
 package com.webtp.gimme.controller;
 
-import com.webtp.gimme.model.User;
+import com.webtp.gimme.model.Customer;
 import com.webtp.gimme.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +13,12 @@ public class UserEndpoint {
     private UserService userService;
 
     @GetMapping("/user/{id}")
-    public User userGet(UUID id) {
+    public Customer userGet(UUID id) {
         return userService.getUser(id);
     }
 
     @PostMapping("/user")
-    public String userPost(@RequestBody User user) {
+    public String userPost(@RequestBody Customer user) {
         userService.createUser(user);
         return "user created";
     }
