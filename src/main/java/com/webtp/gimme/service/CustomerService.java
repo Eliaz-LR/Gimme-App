@@ -4,7 +4,6 @@ import com.webtp.gimme.model.Customer;
 import com.webtp.gimme.repository.CustomerRepository;
 
 import java.util.List;
-import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,18 +13,25 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public List<Customer> getAllUser() { return customerRepository.findAll();}
-
-    public Customer getUser(UUID id) {
-        return customerRepository.findById(id).orElse(new Customer());
+    public List<Customer> getUsers() {
+        return customerRepository.findAll();
     }
 
-    public void createUser(Customer user) {
+    public Customer getUser(String username) {
+        Customer customer = customerRepository.findById(username).orElse(null);
+        return customer;
+    }
+
+    public int createUser(Customer user) {
+        if (customerRepository.findById(user.getUsername()).isPresent()) {
+            return 409;
+        }
         customerRepository.save(user);
+        return 200;
     }
 
-    public void deleteUser(UUID id) {
-        customerRepository.deleteById(id);
+    public void deleteUser(String username) {
+        customerRepository.deleteById(username);
     }
 
     public void updateUser(Customer user) {

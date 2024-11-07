@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 public class CustomerEndpoint {
@@ -16,29 +15,33 @@ public class CustomerEndpoint {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/user")
-    public List<Customer> usersGet() {
-        return customerService.getAllUser();
+    @GetMapping("/user/{username}")
+    public Customer userGet(@PathVariable String username) {
+        return customerService.getUser(username);
     }
 
-    @GetMapping("/user/{id}")
-    public Customer userGet(UUID id) {
-        return customerService.getUser(id);
+    @GetMapping("/users")
+    public List<Customer> usersGet() {
+        return customerService.getUsers();
     }
 
     @PostMapping("/user")
     public ResponseEntity<String> userPost(@RequestBody Customer user) {
-        customerService.createUser(user);
-        return ResponseEntity.created(URI.create("/user/" + user.getId())).build();
+        int status = customerService.createUser(user);
+        if (status == 409) {
+            // to do change 400 to >409
+            return ResponseEntity.badRequest().body("User already exists");
+        }
+        return ResponseEntity.created(URI.create("/user/" + user.getUsername())).build();
     }
 
-    @DeleteMapping("/user/{id}")
-    public String userDelete(UUID id) {
-        customerService.deleteUser(id);
+    @DeleteMapping("/user/{username}")
+    public String userDelete(String username) {
+        customerService.deleteUser(username);
         return "user deleted";
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/user/{username}")
     public String userPut(@RequestBody Customer user) {
         customerService.updateUser(user);
         return "user updated";
