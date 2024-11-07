@@ -34,9 +34,9 @@ public class OfferEndpoint {
         }
     }
 
-    @GetMapping(params = "search")
-    public List<Offer> searchOffer(@RequestParam(value = "search") String search) {
-        return offerService.getOffersByName(search);
+    @GetMapping(params = "name")
+    public List<Offer> getOffersByName(@RequestParam(value = "name") String name) {
+        return offerService.getOffersByName(name);
     }
 
     @GetMapping(params = "category")
