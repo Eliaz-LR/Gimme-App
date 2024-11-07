@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -14,6 +15,11 @@ public class CustomerEndpoint {
     
     @Autowired
     private CustomerService customerService;
+
+    @GetMapping("/user")
+    public List<Customer> usersGet() {
+        return customerService.getAllUser();
+    }
 
     @GetMapping("/user/{id}")
     public Customer userGet(UUID id) {

@@ -2,6 +2,8 @@ package com.webtp.gimme.service;
 
 import com.webtp.gimme.model.Customer;
 import com.webtp.gimme.repository.CustomerRepository;
+
+import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,8 @@ public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    public List<Customer> getAllUser() { return customerRepository.findAll();}
 
     public Customer getUser(UUID id) {
         return customerRepository.findById(id).orElse(new Customer());
