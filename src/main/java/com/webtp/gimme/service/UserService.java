@@ -1,7 +1,7 @@
 package com.webtp.gimme.service;
 
-import com.webtp.gimme.model.User;
-import com.webtp.gimme.repository.UserRepository;
+import com.webtp.gimme.model.Customer;
+import com.webtp.gimme.repository.CustomerRepository;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,21 +10,21 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private CustomerRepository customerRepository;
 
-    public User getUser(UUID id) {
-        return userRepository.findById(id).orElse(null);
+    public Customer getUser(UUID id) {
+        return customerRepository.findById(id).orElse(new Customer());
     }
 
-    public void createUser(User user) {
-        userRepository.save(user);
+    public void createUser(Customer user) {
+        customerRepository.save(user);
     }
 
     public void deleteUser(UUID id) {
-        userRepository.deleteById(id);
+        customerRepository.deleteById(id);
     }
 
-    public void updateUser(User user) {
-        userRepository.save(user);
+    public void updateUser(Customer user) {
+        customerRepository.save(user);
     }
 }
