@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import com.webtp.gimme.model.Offer;
 import com.webtp.gimme.service.OfferService;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/offers")
 public class OfferEndpoint {
@@ -23,7 +25,7 @@ public class OfferEndpoint {
 
     @GetMapping("/{id}")
     public Offer getOffer(@PathVariable String id) {
-        return offerService.getOfferByID(Long.parseLong(id));
+        return offerService.getOfferByID(UUID.fromString(id));
     }
 
     @GetMapping(params = "search")
@@ -43,7 +45,7 @@ public class OfferEndpoint {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteOffer(@PathVariable Long id) {
+    public ResponseEntity<String> deleteOffer(@PathVariable UUID id) {
         boolean deleted = offerService.deleteOfferByID(id);
         if (deleted) {
             return ResponseEntity.ok("Offer deleted successfully");
@@ -54,7 +56,7 @@ public class OfferEndpoint {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateOffer(@PathVariable String id, @RequestBody Offer offer) {
-        offer.setId(Long.parseLong(id));
+        offer.setId(UUID.fromString(id));
         boolean updated = offerService.updateOffer(offer);
         if (updated) {
             return ResponseEntity.ok("Offer updated successfully");
