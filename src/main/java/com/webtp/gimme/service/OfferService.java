@@ -43,4 +43,14 @@ public class OfferService {
             return false;
         }
     }
+
+    public boolean updateOffer(Offer offer) {
+        Optional<Offer> existingOffer = offerRepository.findById(offer.getId());
+        if (existingOffer.isPresent()) {
+            offerRepository.save(offer);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

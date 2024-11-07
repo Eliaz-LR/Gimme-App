@@ -51,4 +51,15 @@ public class OfferEndpoint {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Offer not found");
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateOffer(@PathVariable String id, @RequestBody Offer offer) {
+        offer.setId(Long.parseLong(id));
+        boolean updated = offerService.updateOffer(offer);
+        if (updated) {
+            return ResponseEntity.ok("Offer updated successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Offer not found");
+        }
+    }
 }
