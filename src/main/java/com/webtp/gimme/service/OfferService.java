@@ -18,6 +18,10 @@ public class OfferService {
         return offerRepository.findAll();
     }
 
+    public Offer getOfferByID(Long id) {
+        return offerRepository.findById(id).orElse(null);
+    }
+
     public List<Offer> getOffersByName(String name) {
         return offerRepository.findByName(name);
     }

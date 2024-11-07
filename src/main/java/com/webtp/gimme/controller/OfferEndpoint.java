@@ -21,6 +21,11 @@ public class OfferEndpoint {
         return offerService.getOffers();
     }
 
+    @GetMapping("/{id}")
+    public Offer getOffer(@PathVariable String id) {
+        return offerService.getOfferByID(Long.parseLong(id));
+    }
+
     @GetMapping(params = "search")
     public List<Offer> searchOffer(@RequestParam(value = "search") String search) {
         return offerService.getOffersByName(search);
@@ -45,6 +50,5 @@ public class OfferEndpoint {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Offer not found");
         }
-
     }
 }

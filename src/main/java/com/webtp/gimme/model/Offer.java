@@ -22,9 +22,11 @@ public class Offer {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private Category category;
+    private Category category = Category.OTHER;
 
     public enum Category {
         ELECTRONICS, FASHION, HOME, OTHER
     }
+
+    private Boolean isActive = true;
 }
