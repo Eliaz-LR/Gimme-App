@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import com.webtp.gimme.model.Offer;
 import com.webtp.gimme.service.OfferService;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/offers")
 public class OfferEndpoint {
@@ -21,8 +23,13 @@ public class OfferEndpoint {
         return offerService.getOffers();
     }
 
-    @GetMapping("/offers")
-    public List<Offer> offers(@RequestParam(value = "search") String search) {
+    @GetMapping("/{id}")
+    public Offer getOffer(@PathVariable String id) {
+        return offerService.getOfferByID(UUID.fromString(id));
+    }
+
+    @GetMapping(params = "search")
+    public List<Offer> searchOffer(@RequestParam(value = "search") String search) {
         return offerService.getOffersByName(search);
     }
 
@@ -38,13 +45,23 @@ public class OfferEndpoint {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteOffer(@PathVariable Long id) {
+    public ResponseEntity<String> deleteOffer(@PathVariable UUID id) {
         boolean deleted = offerService.deleteOfferByID(id);
         if (deleted) {
             return ResponseEntity.ok("Offer deleted successfully");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Offer not found");
         }
+    }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateOffer(@PathVariable String id, @RequestBody Offer offer) {
+        offer.setId(UUID.fromString(id));
+        boolean updated = offerService.updateOffer(offer);
+        if (updated) {
+            return ResponseEntity.ok("Offer updated successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Offer not found");
+        }
     }
 }

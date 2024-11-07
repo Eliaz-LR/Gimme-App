@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class OfferService {
 
@@ -16,6 +18,10 @@ public class OfferService {
 
     public List<Offer> getOffers() {
         return offerRepository.findAll();
+    }
+
+    public Offer getOfferByID(UUID id) {
+        return offerRepository.findById(id).orElse(null);
     }
 
     public List<Offer> getOffersByName(String name) {
@@ -30,10 +36,20 @@ public class OfferService {
         offerRepository.save(offer);
     }
 
-    public boolean deleteOfferByID(Long id) {
+    public boolean deleteOfferByID(UUID id) {
         Optional<Offer> offer = offerRepository.findById(id);
         if (offer.isPresent()) {
             offerRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean updateOffer(Offer offer) {
+        Optional<Offer> existingOffer = offerRepository.findById(offer.getId());
+        if (existingOffer.isPresent()) {
+            offerRepository.save(offer);
             return true;
         } else {
             return false;
