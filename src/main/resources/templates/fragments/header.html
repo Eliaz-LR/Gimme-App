@@ -8,11 +8,11 @@
         <a href="#contact">Contact</a>
     </nav>
     <div class="auth-buttons">
-        <div th:if="${isAuthenticated == null or !isAuthenticated}">
+        <div sec:authorize="!isAuthenticated()">
             <a href="/login" class="btn login-btn">Login</a>
             <a href="/register" class="btn register-btn">Register</a>
         </div>
-        <div th:if="${isAuthenticated}">
+        <div sec:authorize="isAuthenticated()">
             <a href="/profile" class="btn profile-btn">Profil</a>
             <form th:action="@{/logout}" method="post" style="display: inline;">
                 <button type="submit" class="btn logout-btn">Logout</button>

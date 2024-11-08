@@ -11,7 +11,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-public class CustomerEndpoint {
+public class CustomerController {
     
     @Autowired
     private CustomerService customerService;

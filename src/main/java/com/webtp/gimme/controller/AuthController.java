@@ -1,7 +1,6 @@
 package com.webtp.gimme.controller;
 
 import com.webtp.gimme.model.Customer;
-import com.webtp.gimme.model.Offer;
 import com.webtp.gimme.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -10,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class LoginEndpoint {
+public class AuthController {
 
     @Autowired
     private CustomerService customerService;

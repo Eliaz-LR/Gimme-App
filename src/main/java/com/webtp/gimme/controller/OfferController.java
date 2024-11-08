@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/offers")
-public class OfferEndpoint {
+public class OfferController {
     @Autowired
     private OfferService offerService;
 
