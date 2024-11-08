@@ -16,6 +16,3 @@ public class Customer {
 
     private String name;
 }
-
-//Create an user 
-
