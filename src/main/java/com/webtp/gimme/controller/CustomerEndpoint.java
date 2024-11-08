@@ -29,8 +29,7 @@ public class CustomerEndpoint {
     public ResponseEntity<String> userPost(@RequestBody Customer user) {
         int status = customerService.createUser(user);
         if (status == 409) {
-            // to do change 400 to >409
-            return ResponseEntity.badRequest().body("User already exists");
+            return ResponseEntity.status(409).body("User already exists");
         }
         return ResponseEntity.created(URI.create("/user/" + user.getUsername())).build();
     }
