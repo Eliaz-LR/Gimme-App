@@ -1,9 +1,9 @@
 -- Insérer des clients dans la table customer
 INSERT INTO customer (username, password, name)
 VALUES
-    ('user1', 'password1', 'User One'),
-    ('user2', 'password2', 'User Two'),
-    ('user3', 'password3', 'User Three');
+    ('user1', '{noop}password1', 'User One'),
+    ('user2', '{noop}password2', 'User Two'),
+    ('user3', '{noop}password3', 'User Three');
 
 -- Insérer des offres dans la table offer
 INSERT INTO offer (id, name, description, category, condition, posted_date, postcode, keywords, can_be_sent_by_post, is_active)
