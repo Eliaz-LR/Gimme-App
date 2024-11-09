@@ -1,6 +1,6 @@
 package com.webtp.gimme.controller;
 
-import com.webtp.gimme.model.Customer;
+import com.webtp.gimme.dto.request.RegisterRequestDTO;
 import com.webtp.gimme.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -15,10 +15,8 @@ public class AuthController {
     private CustomerService customerService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestParam String username,
-                                      @RequestParam String name,
-                                      @RequestParam String password) {
-        customerService.createUser(new Customer(username, "{noop}" + password, name));
+    public ResponseEntity<?> register(@ModelAttribute RegisterRequestDTO registerDTO) {
+        customerService.registerCustomer(registerDTO);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/login");
         return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);

@@ -1,5 +1,6 @@
 package com.webtp.gimme.service;
 
+import com.webtp.gimme.dto.request.RegisterRequestDTO;
 import com.webtp.gimme.model.Customer;
 import com.webtp.gimme.repository.CustomerRepository;
 
@@ -13,16 +14,15 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public List<Customer> getUsers() {
+    public List<Customer> getCustomers() {
         return customerRepository.findAll();
     }
 
-    public Customer getUser(String username) {
-        Customer customer = customerRepository.findById(username).orElse(null);
-        return customer;
+    public Customer getCustomer(String username) {
+        return customerRepository.findById(username).orElse(null);
     }
 
-    public int createUser(Customer user) {
+    public int createCustomer(Customer user) {
         if (customerRepository.findById(user.getUsername()).isPresent()) {
             return 409;
         }
@@ -30,11 +30,20 @@ public class CustomerService {
         return 200;
     }
 
-    public void deleteUser(String username) {
+    public void deleteCustomer(String username) {
         customerRepository.deleteById(username);
     }
 
-    public void updateUser(Customer user) {
+    public void updateCustomer(Customer user) {
         customerRepository.save(user);
+    }
+
+    public void registerCustomer(RegisterRequestDTO registerRequestDTO) {
+        Customer customer = new Customer();
+        customer.setUsername(registerRequestDTO.getUsername());
+        customer.setName(registerRequestDTO.getName());
+        customer.setPassword("{noop}" + registerRequestDTO.getPassword());
+
+        customerRepository.save(customer);
     }
 }

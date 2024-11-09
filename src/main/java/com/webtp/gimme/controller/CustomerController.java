@@ -18,7 +18,7 @@ public class CustomerController {
 
     @GetMapping("/user/{username}")
     public ResponseEntity<Customer> userGet(@PathVariable String username) {
-        Customer user = customerService.getUser(username);
+        Customer user = customerService.getCustomer(username);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
@@ -27,12 +27,12 @@ public class CustomerController {
 
     @GetMapping("/users")
     public List<Customer> usersGet() {
-        return customerService.getUsers();
+        return customerService.getCustomers();
     }
 
     @PostMapping("/user")
     public ResponseEntity<String> userPost(@RequestBody Customer user) {
-        int status = customerService.createUser(user);
+        int status = customerService.createCustomer(user);
         if (status == 409) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
         }
@@ -41,13 +41,13 @@ public class CustomerController {
 
     @DeleteMapping("/user/{username}")
     public String userDelete(@PathVariable String username) {
-        customerService.deleteUser(username);
+        customerService.deleteCustomer(username);
         return "user deleted";
     }
 
     @PutMapping("/user/{username}")
     public String userPut(@RequestBody Customer user) {
-        customerService.updateUser(user);
+        customerService.updateCustomer(user);
         return "user updated";
     }
 }
