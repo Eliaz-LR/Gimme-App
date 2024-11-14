@@ -58,5 +58,22 @@
 }
 
 .btn:hover {
-    background-color: #C93D4B; /* Rouge vif au survol */
+    background-color: #C93D4B;
+}
+
+/* Section pour les messages d'erreur */
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.error-message p {
+    margin: 0;
 }
