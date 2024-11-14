@@ -15,4 +15,4 @@ VALUES
     (UUID(), 'Smartphone', 'Latest model smartphone with high-end features', 'ELECTRONICS', 'NEW_WITH_TAG', CURRENT_TIMESTAMP, '75001', 'phone', true, true),
     (UUID(), 'Dining Table', 'Wooden dining table for 6 people', 'HOME', 'VERY_GOOD', CURRENT_TIMESTAMP, '69001', 'table', false, true),
     (UUID(), 'Gaming Console', 'Gaming console with two controllers', 'ELECTRONICS', 'GOOD', CURRENT_TIMESTAMP, '13001', 'console', true, true),
-    (UUID(), 'Bicycle', 'Mountain bike in excellent condition', 'OTHER', 'VERY_GOOD', CURRENT_TIMESTAMP, '33001', 'bike', false, true),
+    (UUID(), 'Bicycle', 'Mountain bike in excellent condition', 'OTHER', 'VERY_GOOD', CURRENT_TIMESTAMP, '33001', 'bike', false, true);
