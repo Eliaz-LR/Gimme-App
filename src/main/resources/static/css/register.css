@@ -32,18 +32,26 @@
     display: block; /* Pour que le label prenne toute la largeur */
 }
 
+/* Style général pour les champs de formulaire */
 .form-group input {
     width: 100%;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc; /* Bordure grise */
-    border-radius: 4px; /* Coins arrondis */
-    outline: none; /* Retire l'outline par défaut */
-    transition: border 0.3s ease; /* Transition pour le focus */
+    border: 1px solid #ccc; /* Bordure grise par défaut */
+    border-radius: 4px;
+    outline: none;
+    transition: border 0.3s ease;
 }
 
-.form-group input:focus {
-    border-color: var(--accent-color); /* Couleur d'accent au focus */
+/* Bordure rouge pour les champs invalides (mot de passe différent) */
+.form-group input.invalid {
+    border-color: red;
+}
+
+/* Style du bouton désactivé */
+#submit-button:disabled {
+    background-color: #ccc; /* Fond gris quand désactivé */
+    cursor: not-allowed;
 }
 
 .btn {

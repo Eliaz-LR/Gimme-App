@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/main.css">      <!-- Styles globaux -->
-    <link rel="stylesheet" href="css/register.css">   <!-- Styles spécifiques à la page d'enregistrement -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/register.css">
     <title>Gimme - Inscription</title>
     <link rel="icon" href="/images/icon.png" type="image/png">
 </head>
@@ -42,11 +42,13 @@
             <input type="password" id="confirm-password" name="confirm-password" required>
         </div>
 
-        <button type="submit" class="btn">S'inscrire</button>
+        <button type="submit" id="submit-button" class="btn" disabled>S'inscrire</button>
     </form>
 </div>
 
 <div th:replace="fragments/footer :: footer"></div>
+
+<script src="js/password-validation.js"></script>
 
 </body>
 </html>
