@@ -40,6 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/css/**", "/images/**").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/register").permitAll()
+                        //.requestMatchers("**").permitAll()  // For dev purpose only
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
