@@ -2,6 +2,7 @@ package com.webtp.gimme.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,12 @@ public class OfferController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
+    }
+
+    @GetMapping("/search")
+    public List<Offer> searchOffers(@RequestParam String prompt, @RequestParam Optional<Offer.Category> category, @RequestParam Optional<Offer.Condition> condition, @RequestParam Optional<String> postcode, @RequestParam Optional<List<String>> keywords, @RequestParam Optional<Boolean> canBeSentByPost) {
+        System.out.println(prompt);
+        return offerService.searchOffers(prompt, category, condition, postcode, keywords, canBeSentByPost);
     }
 
     @GetMapping(params = "name")

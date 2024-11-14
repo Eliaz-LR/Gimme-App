@@ -1,6 +1,8 @@
 package com.webtp.gimme.service;
 
 import com.webtp.gimme.model.Offer;
+import com.webtp.gimme.model.Offer.Category;
+import com.webtp.gimme.model.Offer.Condition;
 import com.webtp.gimme.repository.OfferRepository;
 import java.util.List;
 import java.util.Optional;
@@ -54,5 +56,12 @@ public class OfferService {
         } else {
             return false;
         }
+    }
+
+    public List<Offer> searchOffers(String prompt, Optional<Category> category,
+	        Optional<Condition> condition, Optional<String> postcode,
+	        Optional<List<String>> keywords, Optional<Boolean> canBeSentByPost) {
+                System.out.println(prompt);
+                return offerRepository.searchOffersByNameOrDescription(prompt, category.orElse(null), condition.orElse(null), postcode.orElse(null), keywords.orElse(null), canBeSentByPost.orElse(null));
     }
 }
