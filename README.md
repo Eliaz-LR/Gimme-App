@@ -10,3 +10,12 @@ MacOS/Linux: \
 Windows: \
 ./gradlew.bat bootRun
 
+## TODO
+
+- [ ] BDD externe optionnelle
+- [ ] Entetes de cahce et requetes conditionnelles (JSP)
+- [ ] Sauvegarde des recherches
+- [ ] Notifications sur les recherches sauvegardees
+- [ ] Favoris annonce 
+- [ ] Lots d'objets pour transaction groupée
+- [ ] Messagerie interne
