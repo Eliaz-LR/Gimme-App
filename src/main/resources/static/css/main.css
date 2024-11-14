@@ -1,9 +1,9 @@
 :root {
-    --primary-color: #2D2A30; /* Noir légèrement brisé */
-    --secondary-color: #B09E77; /* Beige doré */
-    --accent-color: #C93D4B; /* Rouge vif */
-    --background-color: #F7F6F2; /* Blanc cassé */
-    --text-color: #4A4A4A; /* Gris moyen */
+    --primary-color: #2D2A30;
+    --secondary-color: #B09E77;
+    --accent-color: #C93D4B;
+    --background-color: #F7F6F2;
+    --text-color: #4A4A4A;
 }
 
 /* Style général */
@@ -13,9 +13,9 @@ body {
     font-family: 'Poppins', sans-serif;
     background: var(--background-color);
     color: var(--text-color);
-    height: 100vh; /* Remplit la hauteur de la vue */
+    height: 100vh;
     display: flex;
-    flex-direction: column; /* Colonne pour le header, contenu et footer */
+    flex-direction: column;
     overflow-x: hidden;
 }
 
@@ -43,7 +43,7 @@ body {
 .logo h1 a {
     margin: 0;
     font-size: 26px;
-    color: #FFFFFF; /* Titre en blanc */
+    color: #FFFFFF;
     text-decoration: none;
 }
 

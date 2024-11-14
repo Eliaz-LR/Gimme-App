@@ -5,31 +5,31 @@
     align-items: center;
     text-align: center;
     flex-grow: 1;
-    padding: 60px 20px; /* Espacement pour le contenu */
+    padding: 60px 20px;
 }
 
 .register-content h2 {
     font-size: 32px;
-    margin: 60px 0 30px; /* Ajoute un margin-top de 60px */
-    color: var(--primary-color); /* Couleur primaire pour le titre */
+    margin: 60px 0 30px;
+    color: var(--primary-color);
 }
 
 .register-form {
-    background-color: var(--background-color); /* Fond clair */
+    background-color: var(--background-color);
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
-    margin-bottom: 20px; /* Espacement entre les champs */
-    text-align: left; /* Aligne le texte à gauche */
+    margin-bottom: 20px;
+    text-align: left;
 }
 
 .form-group label {
     font-size: 16px;
     margin-bottom: 8px;
-    display: block; /* Pour que le label prenne toute la largeur */
+    display: block;
 }
 
 /* Style général pour les champs de formulaire */
@@ -37,26 +37,23 @@
     width: 100%;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc; /* Bordure grise par défaut */
+    border: 1px solid #ccc;
     border-radius: 4px;
     outline: none;
     transition: border 0.3s ease;
 }
 
-/* Bordure rouge pour les champs invalides (mot de passe différent) */
 .form-group input.invalid {
     border-color: red;
 }
 
-/* Style du bouton désactivé */
 #submit-button:disabled {
-    background-color: #ccc; /* Fond gris quand désactivé */
     cursor: not-allowed;
 }
 
 .btn {
-    background-color: var(--accent-color); /* Couleur d'accent pour le bouton */
-    color: #ffffff; /* Texte en blanc */
+    background-color: var(--accent-color);
+    color: #ffffff;
     border: none;
     padding: 10px 20px;
     border-radius: 25px;

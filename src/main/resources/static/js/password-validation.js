@@ -4,12 +4,10 @@ function checkPasswords() {
     const submitButton = document.getElementById("submit-button");
 
     if (password.value !== confirmPassword.value) {
-        confirmPassword.setCustomValidity("Les mots de passe ne correspondent pas.");
         password.classList.add("invalid");
         confirmPassword.classList.add("invalid");
         submitButton.disabled = true;
     } else {
-        confirmPassword.setCustomValidity("");
         password.classList.remove("invalid");
         confirmPassword.classList.remove("invalid");
         submitButton.disabled = false;

@@ -10,7 +10,7 @@
 
 .login-content h2 {
     font-size: 32px;
-    margin: 60px 0 30px; /* Ajoute un margin-top de 60px */
+    margin: 60px 0 30px;
     color: var(--primary-color);
 }
 
@@ -59,4 +59,35 @@
 
 .btn:hover {
     background-color: #C93D4B;
+}
+
+.success-message {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.success-message p {
+    margin: 0;
+}
+
+/* Section pour les messages d'erreur */
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.error-message p {
+    margin: 0;
 }
