@@ -1,6 +1,7 @@
 package com.webtp.gimme.service;
 
 import com.webtp.gimme.dto.request.RegisterRequestDTO;
+import com.webtp.gimme.exception.UsernameAlreadyExistsException;
 import com.webtp.gimme.model.Customer;
 import com.webtp.gimme.repository.CustomerRepository;
 
@@ -43,6 +44,10 @@ public class CustomerService {
         customer.setUsername(registerRequestDTO.getUsername());
         customer.setName(registerRequestDTO.getName());
         customer.setPassword("{noop}" + registerRequestDTO.getPassword());
+
+        if (customerRepository.existsById(customer.getUsername())) {
+            throw new UsernameAlreadyExistsException("Nom d'utilisateur déjà pris");
+        }
 
         customerRepository.save(customer);
     }
