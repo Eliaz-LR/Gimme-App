@@ -22,10 +22,17 @@ public class OfferController {
     @Autowired
     private OfferService offerService;
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     @ResponseBody
     public List<Offer> getAllOffers() {
         return offerService.getOffers();
+    }
+
+    @GetMapping(produces = "text/html")
+    public String getAllOffersHtml(Model model) {
+        List<Offer> offers = offerService.getOffers();
+        model.addAttribute("offers", offers);
+        return "offers";
     }
 
     @GetMapping("/{id}")
@@ -43,12 +50,12 @@ public class OfferController {
     public String searchOffersHtml(@RequestParam String search, Model model, @RequestParam Optional<Offer.Category> category, @RequestParam Optional<Offer.Condition> condition, @RequestParam Optional<String> postcode, @RequestParam Optional<List<String>> keywords, @RequestParam Optional<Boolean> canBeSentByPost) {
         List<Offer> offers = offerService.searchOffers(search, category, condition, postcode, keywords, canBeSentByPost);
         model.addAttribute("offers", offers);
-        return "offers";
+        return "offers-search";
     }
 
     @GetMapping(params = "search", produces = "application/json")
     @ResponseBody
-    public List<Offer> searchOffersJson(@RequestParam String search, Model model, @RequestParam Optional<Offer.Category> category, @RequestParam Optional<Offer.Condition> condition, @RequestParam Optional<String> postcode, @RequestParam Optional<List<String>> keywords, @RequestParam Optional<Boolean> canBeSentByPost) {
+    public List<Offer> searchOffersJson(@RequestParam String search, @RequestParam Optional<Offer.Category> category, @RequestParam Optional<Offer.Condition> condition, @RequestParam Optional<String> postcode, @RequestParam Optional<List<String>> keywords, @RequestParam Optional<Boolean> canBeSentByPost) {
         return offerService.searchOffers(search, category, condition, postcode, keywords, canBeSentByPost);
     }
 

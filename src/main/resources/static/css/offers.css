@@ -5,53 +5,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.search-bar {
-    width: 100%;
     padding-top: 80px;
-    max-width: 600px;
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: center;
 }
 
-.search-bar form {
-    width: 100%;
-    display: flex;
-    gap: 10px;
-}
-
-.search-bar input {
-    flex: 1;
-    padding: 10px;
-    border-radius: 25px;
-    border: 1px solid var(--primary-color);
-    font-size: 16px;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.search-bar input:focus {
-    border-color: var(--accent-color);
-}
-
-.search-bar button {
-    background-color: var(--accent-color);
-    color: var(--background-color);
-    border: none;
-    padding: 10px 15px;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.search-bar button:hover {
-    background-color: var(--primary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
 
 .offers-results {
     width: 100%;
