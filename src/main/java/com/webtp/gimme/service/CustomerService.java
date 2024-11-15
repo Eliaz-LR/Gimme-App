@@ -7,6 +7,7 @@ import com.webtp.gimme.repository.CustomerRepository;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +15,9 @@ public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<Customer> getCustomers() {
         return customerRepository.findAll();
@@ -40,15 +44,14 @@ public class CustomerService {
     }
 
     public void registerCustomer(RegisterRequestDTO registerRequestDTO) {
-        Customer customer = new Customer();
-        customer.setUsername(registerRequestDTO.getUsername());
-        customer.setName(registerRequestDTO.getName());
-        customer.setPassword("{noop}" + registerRequestDTO.getPassword());
-
-        if (customerRepository.existsById(customer.getUsername())) {
+        if (customerRepository.existsById(registerRequestDTO.getUsername())) {
             throw new UsernameAlreadyExistsException("Nom d'utilisateur déjà pris");
         }
 
+        Customer customer = new Customer();
+        customer.setUsername(registerRequestDTO.getUsername());
+        customer.setName(registerRequestDTO.getName());
+        customer.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
         customerRepository.save(customer);
     }
 }
