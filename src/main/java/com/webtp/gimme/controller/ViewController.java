@@ -1,6 +1,10 @@
 package com.webtp.gimme.controller;
 
+import com.webtp.gimme.security.CustomerDetails;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -22,7 +26,10 @@ public class ViewController {
     }
 
     @GetMapping("/profile-update")
-    public String profileUpdate() {
+    public String profileUpdate(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
+        model.addAttribute("customer", customerDetails.getCustomer());
         return "profile-update";
     }
 

@@ -100,3 +100,17 @@
 .profile-main .btn:hover {
     background-color: var(--primary-color);
 }
+
+.success-message {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.success-message p {
+    margin: 0;
+}

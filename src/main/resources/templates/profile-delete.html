@@ -20,8 +20,8 @@
         <section id="delete-profile">
             <h2>Supprimer mon profil</h2>
             <p>Attention, cette action est irréversible !</p>
-            <form method="POST" action="/profile/delete">
-                <button type="submit" class="btn small-btn delete-btn">Supprimer</button>
+            <form id="delete-form" method="POST" th:action="@{/profile-delete}">
+                <button type="submit" class="btn small-btn">Supprimer mon profil</button>
             </form>
         </section>
     </div>

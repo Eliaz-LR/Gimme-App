@@ -28,6 +28,10 @@ public class CustomerDetails implements UserDetails {
         return customer.getUsername();
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

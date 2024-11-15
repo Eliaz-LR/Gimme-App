@@ -1,11 +1,14 @@
 package com.webtp.gimme.service;
 
 import com.webtp.gimme.dto.request.RegisterRequestDTO;
+import com.webtp.gimme.dto.request.UpdateProfileRequestDTO;
 import com.webtp.gimme.exception.UsernameAlreadyExistsException;
 import com.webtp.gimme.model.Customer;
 import com.webtp.gimme.repository.CustomerRepository;
 
 import java.util.List;
+
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -52,6 +55,16 @@ public class CustomerService {
         customer.setUsername(registerRequestDTO.getUsername());
         customer.setName(registerRequestDTO.getName());
         customer.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
+        customerRepository.save(customer);
+    }
+
+    public void updateCustomer(UpdateProfileRequestDTO updateProfileRequestDTO, Customer customer) {
+        if (Strings.isNotBlank(updateProfileRequestDTO.getName())) {
+            customer.setName(updateProfileRequestDTO.getName());
+        }
+        if (Strings.isNotBlank(updateProfileRequestDTO.getPassword())) {
+            customer.setPassword(passwordEncoder.encode(updateProfileRequestDTO.getPassword()));
+        }
         customerRepository.save(customer);
     }
 }
