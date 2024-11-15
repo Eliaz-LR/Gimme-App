@@ -18,8 +18,10 @@
     </div>
     <div class="search-container">
         <div class="search-box">
-            <input type="text" placeholder="Recherchez un objet ou un service...">
-            <button class="search-btn">Rechercher</button>
+            <form action="/offers/search" method="get">
+                <input type="text" name="prompt" placeholder="Recherchez un objet ou un service..." required>
+                <button type="submit" class="search-btn">Rechercher</button>
+            </form>
         </div>
     </div>
 </main>

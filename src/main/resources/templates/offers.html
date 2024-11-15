@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/offers.css">
+    <title>Gimme - Offres</title>
+    <link rel="icon" href="/images/icon.png" type="image/png">
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<main class="search-container">
+    <!-- Formulaire de recherche -->
+    <section class="search-bar">
+        <form action="/offers/search" method="get">
+            <input type="text" name="prompt" id="searchInput" placeholder="Recherchez une offre..." required />
+            <button type="submit" class="btn">Rechercher</button>
+        </form>
+    </section>
+
+    <!-- Section des résultats d'offres -->
+    <section class="offers-results">
+        <h2>Résultats de la recherche</h2>
+        <div class="offers-list">
+            <!-- Les résultats des offres seront affichés ici par le backend -->
+            <div th:each="offer : ${offers}">
+                <div class="offer-item">
+                    <h3 th:text="${offer.name}"></h3>
+                    <p th:text="${offer.description}"></p>
+
+                    <!-- Affichage de la catégorie -->
+                    <p class="offer-category">
+                        <strong>Catégorie :</strong> <span th:text="${offer.category}"></span>
+                    </p>
+
+                    <!-- Affichage de la condition -->
+                    <p class="offer-condition">
+                        <strong>Condition :</strong> <span th:text="${offer.condition}"></span>
+                    </p>
+
+                    <!-- Affichage de la date de publication -->
+                    <span class="offer-date" th:text="${#dates.format(offer.postedDate, 'dd/MM/yyyy')}"></span>
+
+                    <!-- Affichage du code postal -->
+                    <p class="offer-postcode">
+                        <strong>Code postal :</strong> <span th:text="${offer.postcode}"></span>
+                    </p>
+
+                    <!-- Affichage de la possibilité d'envoi par la poste -->
+                    <p class="offer-post-option" th:if="${offer.canBeSentByPost}">
+                        <strong>Envoi possible par la poste :</strong> Oui
+                    </p>
+                    <p class="offer-post-option" th:if="${!offer.canBeSentByPost}">
+                        <strong>Envoi possible par la poste :</strong> Non
+                    </p>
+                </div>
+            </div>
+
+            <!-- Si aucune offre trouvée -->
+            <div th:if="${#lists.isEmpty(offers)}">
+                <p>Aucune offre ne correspond à votre recherche.</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

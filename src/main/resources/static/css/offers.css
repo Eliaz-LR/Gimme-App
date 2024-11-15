@@ -1,0 +1,155 @@
+/* Styles pour la page de recherche d'offres */
+
+.search-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-bar {
+    width: 100%;
+    padding-top: 80px;
+    max-width: 600px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.search-bar form {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 25px;
+    border: 1px solid var(--primary-color);
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+    border-color: var(--accent-color);
+}
+
+.search-bar button {
+    background-color: var(--accent-color);
+    color: var(--background-color);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-bar button:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.offers-results {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.offers-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.offer-item {
+    background-color: var(--background-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.offer-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.offer-item h3 {
+    font-size: 18px;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.offer-item p {
+    font-size: 14px;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.offer-category,
+.offer-condition,
+.offer-postcode {
+    font-size: 14px;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.offer-date {
+    font-size: 12px;
+    color: #777;
+}
+
+.offer-post-option {
+    font-size: 14px;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.offer-item .offer-category,
+.offer-item .offer-condition {
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+.offer-item .offer-category span,
+.offer-item .offer-condition span {
+    color: var(--secondary-color);
+}
+
+.offer-item .offer-postcode span {
+    color: var(--primary-color);
+}
+
+.offer-item .offer-date {
+    font-style: italic;
+    color: #aaa;
+}
+
+.offers-list div {
+    display: flex;
+    flex-direction: column;
+}
+
+.offers-list .offer-item {
+    padding: 15px;
+}
+
+/* Si aucune offre trouvée */
+.offers-results p {
+    text-align: center;
+    font-size: 18px;
+    color: #777;
+}
+
+.offers-results .offer-item .offer-post-option {
+    color: var(--accent-color);
+}

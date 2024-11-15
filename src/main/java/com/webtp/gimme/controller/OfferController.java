@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.webtp.gimme.model.Offer;
@@ -14,7 +16,7 @@ import com.webtp.gimme.service.OfferService;
 
 import java.util.UUID;
 
-@RestController
+@Controller
 @RequestMapping("/offers")
 public class OfferController {
     @Autowired
@@ -36,9 +38,10 @@ public class OfferController {
     }
 
     @GetMapping("/search")
-    public List<Offer> searchOffers(@RequestParam String prompt, @RequestParam Optional<Offer.Category> category, @RequestParam Optional<Offer.Condition> condition, @RequestParam Optional<String> postcode, @RequestParam Optional<List<String>> keywords, @RequestParam Optional<Boolean> canBeSentByPost) {
-        System.out.println(prompt);
-        return offerService.searchOffers(prompt, category, condition, postcode, keywords, canBeSentByPost);
+    public String searchOffers(@RequestParam String prompt, Model model, @RequestParam Optional<Offer.Category> category, @RequestParam Optional<Offer.Condition> condition, @RequestParam Optional<String> postcode, @RequestParam Optional<List<String>> keywords, @RequestParam Optional<Boolean> canBeSentByPost) {
+        List<Offer> offers = offerService.searchOffers(prompt, category, condition, postcode, keywords, canBeSentByPost);
+        model.addAttribute("offers", offers);
+        return "offers";
     }
 
     @GetMapping(params = "name")
