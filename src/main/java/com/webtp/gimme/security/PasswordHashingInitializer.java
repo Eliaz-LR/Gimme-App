@@ -1,4 +1,4 @@
-package com.webtp.gimme.config;
+package com.webtp.gimme.security;
 
 import com.webtp.gimme.repository.CustomerRepository;
 import org.springframework.boot.CommandLineRunner;

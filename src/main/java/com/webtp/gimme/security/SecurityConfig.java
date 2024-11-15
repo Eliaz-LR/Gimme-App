@@ -1,4 +1,4 @@
-package com.webtp.gimme.config;
+package com.webtp.gimme.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.webtp.gimme.config;
+package com.webtp.gimme.security;
 
 import com.webtp.gimme.model.Customer;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +15,7 @@ public class CustomerDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList(); // Pas de rôles dans cet exemple
+        return Collections.emptyList();
     }
 
     @Override
