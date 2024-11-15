@@ -23,11 +23,13 @@ public class OfferController {
     private OfferService offerService;
 
     @GetMapping
+    @ResponseBody
     public List<Offer> getAllOffers() {
         return offerService.getOffers();
     }
 
     @GetMapping("/{id}")
+    @ResponseBody
     public ResponseEntity<Offer> getOffer(@PathVariable UUID id) {
         Offer offer = offerService.getOfferByID(id);
         if (offer != null) {
@@ -37,19 +39,27 @@ public class OfferController {
         }
     }
 
-    @GetMapping("/search")
-    public String searchOffers(@RequestParam String prompt, Model model, @RequestParam Optional<Offer.Category> category, @RequestParam Optional<Offer.Condition> condition, @RequestParam Optional<String> postcode, @RequestParam Optional<List<String>> keywords, @RequestParam Optional<Boolean> canBeSentByPost) {
-        List<Offer> offers = offerService.searchOffers(prompt, category, condition, postcode, keywords, canBeSentByPost);
+    @GetMapping(params = "search", produces = "text/html")
+    public String searchOffersHtml(@RequestParam String search, Model model, @RequestParam Optional<Offer.Category> category, @RequestParam Optional<Offer.Condition> condition, @RequestParam Optional<String> postcode, @RequestParam Optional<List<String>> keywords, @RequestParam Optional<Boolean> canBeSentByPost) {
+        List<Offer> offers = offerService.searchOffers(search, category, condition, postcode, keywords, canBeSentByPost);
         model.addAttribute("offers", offers);
         return "offers";
     }
 
+    @GetMapping(params = "search", produces = "application/json")
+    @ResponseBody
+    public List<Offer> searchOffersJson(@RequestParam String search, Model model, @RequestParam Optional<Offer.Category> category, @RequestParam Optional<Offer.Condition> condition, @RequestParam Optional<String> postcode, @RequestParam Optional<List<String>> keywords, @RequestParam Optional<Boolean> canBeSentByPost) {
+        return offerService.searchOffers(search, category, condition, postcode, keywords, canBeSentByPost);
+    }
+
     @GetMapping(params = "name")
+    @ResponseBody
     public List<Offer> getOffersByName(@RequestParam(value = "name") String name) {
         return offerService.getOffersByName(name);
     }
 
     @GetMapping(params = "category")
+    @ResponseBody
     public List<Offer> getOfferByCategory(@RequestParam(value = "category") Offer.Category category) {
         return offerService.getOffersByCategory(category);
     }
@@ -71,6 +81,7 @@ public class OfferController {
     }
 
     @PutMapping("/{id}")
+    @ResponseBody
     public ResponseEntity<String> updateOffer(@PathVariable String id, @RequestBody Offer offer) {
         offer.setId(UUID.fromString(id));
         boolean updated = offerService.updateOffer(offer);
