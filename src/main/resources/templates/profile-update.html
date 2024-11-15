@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <title>Gimme - Profile</title>
+    <link rel="icon" href="/images/icon.png" type="image/png">
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="profile-container">
+    <div th:replace="fragments/profile-nav :: div"></div>
+
+    <!-- Section principale -->
+    <div class="profile-main">
+        <!-- Mise à jour du profil -->
+        <section id="update-profile">
+            <h2>Mettre à jour mon profil</h2>
+            <form id="update-form" method="POST" action="/profile/update">
+                <label for="username">Nom d'utilisateur :</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="name">Nom :</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" name="password">
+
+                <label for="confirm-password">Confirmer le mot de passe :</label>
+                <input type="password" id="confirm-password" name="confirm-password">
+
+                <button type="submit" class="btn small-btn">Mettre à jour</button>
+            </form>
+        </section>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

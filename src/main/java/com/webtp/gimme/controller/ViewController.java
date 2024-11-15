@@ -20,4 +20,14 @@ public class ViewController {
     public String register() {
         return "register";
     }
+
+    @GetMapping("/profile-update")
+    public String profileUpdate() {
+        return "profile-update";
+    }
+
+    @GetMapping("/profile-delete")
+    public String profileDelete() {
+        return "profile-delete";
+    }
 }

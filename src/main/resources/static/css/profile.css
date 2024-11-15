@@ -1,0 +1,102 @@
+/* Conteneur principal */
+.profile-container {
+    display: flex;
+    align-items: flex-start; /* Aligne les éléments en haut */
+    gap: 20px; /* Espacement entre la barre de navigation et le contenu */
+    padding: 20px;
+    margin-top: 80px; /* Pour éviter de chevaucher le header */
+}
+
+/* Barre de navigation gauche */
+.profile-sidebar {
+    width: 200px;
+    position: sticky; /* Reste visible lors du défilement */
+    top: 80px; /* Reste alignée avec le haut du contenu principal */
+    height: fit-content; /* Ajuste sa hauteur au contenu */
+    background: none; /* Même fond que le body */
+}
+
+.profile-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.profile-nav ul li {
+    margin: 20px 0;
+}
+
+.profile-nav ul li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 50px;
+    background-color: var(--background-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 25px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.profile-nav ul li a:hover,
+.profile-nav ul li a.active {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    transform: scale(1.1);
+}
+
+/* Section principale */
+.profile-main {
+    flex: 1; /* Prend toute la largeur restante */
+    padding: 20px;
+    background: var(--background-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.profile-main h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Formulaires */
+.profile-main form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.profile-main label {
+    font-size: 16px;
+    color: var(--primary-color);
+}
+
+.profile-main input {
+    padding: 10px;
+    border: 1px solid var(--text-color);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Boutons à droite avec même taille */
+.profile-main .btn {
+    align-self: flex-end; /* Les boutons restent alignés à droite */
+    background-color: var(--accent-color);
+    color: var(--background-color);
+    padding: 8px 20px;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 150px; /* Taille fixe pour uniformiser */
+    text-align: center;
+}
+
+.profile-main .btn:hover {
+    background-color: var(--primary-color);
+}

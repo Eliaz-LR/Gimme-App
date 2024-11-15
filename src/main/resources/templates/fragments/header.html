@@ -13,7 +13,7 @@
             <a href="/register" class="btn register-btn">Register</a>
         </div>
         <div sec:authorize="isAuthenticated()">
-            <a href="/profile" class="btn profile-btn">Profil</a>
+            <a href="/profile-update" class="btn profile-btn">Profil</a>
             <form th:action="@{/logout}" method="post" style="display: inline;">
                 <button type="submit" class="btn logout-btn">Logout</button>
             </form>
