@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.webtp.gimme.model.Offer;
+import com.webtp.gimme.model.Search;
 import com.webtp.gimme.service.OfferService;
 
 import java.util.UUID;
@@ -48,7 +49,14 @@ public class OfferController {
 
     @GetMapping(params = "search", produces = "text/html")
     public String searchOffersHtml(@RequestParam String search, Model model, @RequestParam Optional<Offer.Category> category, @RequestParam Optional<Offer.Condition> condition, @RequestParam Optional<String> postcode, @RequestParam Optional<List<String>> keywords, @RequestParam Optional<Boolean> canBeSentByPost) {
-        List<Offer> offers = offerService.searchOffers(search, category, condition, postcode, keywords, canBeSentByPost);
+        Search searchObj = new Search();
+        searchObj.setSearchText(search);
+        category.ifPresent(searchObj::setCategory);
+        condition.ifPresent(searchObj::setCondition);
+        postcode.ifPresent(searchObj::setPostcode);
+        keywords.ifPresent(searchObj::setKeywords);
+        canBeSentByPost.ifPresent(searchObj::setCanBeSentByPost);
+        List<Offer> offers = offerService.searchOffers(searchObj);
         model.addAttribute("offers", offers);
         return "offers-search";
     }
@@ -56,7 +64,14 @@ public class OfferController {
     @GetMapping(params = "search", produces = "application/json")
     @ResponseBody
     public List<Offer> searchOffersJson(@RequestParam String search, @RequestParam Optional<Offer.Category> category, @RequestParam Optional<Offer.Condition> condition, @RequestParam Optional<String> postcode, @RequestParam Optional<List<String>> keywords, @RequestParam Optional<Boolean> canBeSentByPost) {
-        return offerService.searchOffers(search, category, condition, postcode, keywords, canBeSentByPost);
+        Search searchObj = new Search();
+        searchObj.setSearchText(search);
+        category.ifPresent(searchObj::setCategory);
+        condition.ifPresent(searchObj::setCondition);
+        postcode.ifPresent(searchObj::setPostcode);
+        keywords.ifPresent(searchObj::setKeywords);
+        canBeSentByPost.ifPresent(searchObj::setCanBeSentByPost);
+        return offerService.searchOffers(searchObj);
     }
 
     @GetMapping(params = "name")
