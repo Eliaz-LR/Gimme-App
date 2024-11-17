@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.webtp.gimme.dto.OfferSearchDto;
 import com.webtp.gimme.model.Offer;
 import com.webtp.gimme.model.Search;
 import com.webtp.gimme.service.OfferService;
@@ -48,14 +49,14 @@ public class OfferController {
     }
 
     @GetMapping(params = "search", produces = "text/html")
-    public String searchOffersHtml(@RequestParam String search, Model model, @RequestParam Optional<Offer.Category> category, @RequestParam Optional<Offer.Condition> condition, @RequestParam Optional<String> postcode, @RequestParam Optional<List<String>> keywords, @RequestParam Optional<Boolean> canBeSentByPost) {
+    public String searchOffersHtml(@ModelAttribute OfferSearchDto offerSearchDto, Model model) {
         Search searchObj = new Search();
-        searchObj.setSearchText(search);
-        category.ifPresent(searchObj::setCategory);
-        condition.ifPresent(searchObj::setCondition);
-        postcode.ifPresent(searchObj::setPostcode);
-        keywords.ifPresent(searchObj::setKeywords);
-        canBeSentByPost.ifPresent(searchObj::setCanBeSentByPost);
+        searchObj.setSearchText(offerSearchDto.getSearch());
+        offerSearchDto.getCategory().ifPresent(searchObj::setCategory);
+        offerSearchDto.getCondition().ifPresent(searchObj::setCondition);
+        offerSearchDto.getPostcode().ifPresent(searchObj::setPostcode);
+        offerSearchDto.getKeywords().ifPresent(searchObj::setKeywords);
+        offerSearchDto.getCanBeSentByPost().ifPresent(searchObj::setCanBeSentByPost);
         List<Offer> offers = offerService.searchOffers(searchObj);
         model.addAttribute("offers", offers);
         return "offers-search";
@@ -63,14 +64,14 @@ public class OfferController {
 
     @GetMapping(params = "search", produces = "application/json")
     @ResponseBody
-    public List<Offer> searchOffersJson(@RequestParam String search, @RequestParam Optional<Offer.Category> category, @RequestParam Optional<Offer.Condition> condition, @RequestParam Optional<String> postcode, @RequestParam Optional<List<String>> keywords, @RequestParam Optional<Boolean> canBeSentByPost) {
+    public List<Offer> searchOffersJson(@ModelAttribute OfferSearchDto offerSearchDto) {
         Search searchObj = new Search();
-        searchObj.setSearchText(search);
-        category.ifPresent(searchObj::setCategory);
-        condition.ifPresent(searchObj::setCondition);
-        postcode.ifPresent(searchObj::setPostcode);
-        keywords.ifPresent(searchObj::setKeywords);
-        canBeSentByPost.ifPresent(searchObj::setCanBeSentByPost);
+        searchObj.setSearchText(offerSearchDto.getSearch());
+        offerSearchDto.getCategory().ifPresent(searchObj::setCategory);
+        offerSearchDto.getCondition().ifPresent(searchObj::setCondition);
+        offerSearchDto.getPostcode().ifPresent(searchObj::setPostcode);
+        offerSearchDto.getKeywords().ifPresent(searchObj::setKeywords);
+        offerSearchDto.getCanBeSentByPost().ifPresent(searchObj::setCanBeSentByPost);
         return offerService.searchOffers(searchObj);
     }
 
