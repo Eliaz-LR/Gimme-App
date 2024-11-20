@@ -2,10 +2,13 @@ package com.webtp.gimme.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,4 +22,7 @@ public class Customer {
     private String password;
 
     private String name;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Search> savedSearches;
 }
