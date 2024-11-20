@@ -13,6 +13,7 @@ Windows: \
 ## TODO
 
 - [ ] BDD externe optionnelle
+- [ ] Front : Filtrage des recherches (categories, etat etc...)
 - [ ] Entetes de cahce et requetes conditionnelles (JSP)
 - [ ] Sauvegarde des recherches
 - [ ] Notifications sur les recherches sauvegardees
