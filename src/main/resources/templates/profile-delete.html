@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <div class="profile-container">
     <div th:replace="fragments/profile-nav :: div"></div>
@@ -28,7 +28,7 @@
 </div>
 </main>
 
-<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
 </html>

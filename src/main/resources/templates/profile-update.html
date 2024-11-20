@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <div class="profile-container">
     <div th:replace="fragments/profile-nav :: div"></div>
@@ -38,13 +38,15 @@
                 <label for="confirm-password">Confirmer le mot de passe :</label>
                 <input type="password" id="confirm-password" name="confirm-password">
 
-                <button type="submit" class="btn small-btn">Mettre à jour</button>
+                <button type="submit" id="submit-button" class="btn small-btn">Mettre à jour</button>
             </form>
         </section>
     </div>
 </div>
 
-<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="js/password-validation.js"></script>
 
 </body>
 </html>

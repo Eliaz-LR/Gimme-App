@@ -10,17 +10,17 @@
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <main class="search-container">
 
     <!-- Section des résultats d'offres -->
     <section class="offers-results">
-        <div th:replace="fragments/offers :: div"></div>
+        <div th:replace="~{fragments/offers :: div}"></div>
     </section>
 </main>
 
-<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
 </html>

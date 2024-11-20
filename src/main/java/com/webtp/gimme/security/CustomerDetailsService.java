@@ -8,10 +8,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 @Service
 public class CustomerDetailsService implements UserDetailsService {
 
     private final CustomerRepository customerRepository;
+    private final Map<String, UserDetails> cache = new ConcurrentHashMap<>();
 
     public CustomerDetailsService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
@@ -19,10 +23,17 @@ public class CustomerDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Customer customer = customerRepository.findById(username).orElse(null);
-        if (customer == null) {
-            throw new BadCredentialsException("Invalid username or password");
-        }
-        return new CustomerDetails(customer);
+        return cache.computeIfAbsent(username, key -> {
+            Customer customer = customerRepository.findById(username).orElse(null);
+            if (customer == null) {
+                throw new UsernameNotFoundException("Invalid username or password");
+            }
+            return new CustomerDetails(customer);
+        });
+    }
+
+    public void evictCache(String username) {
+        cache.remove(username);
     }
 }
+

@@ -80,6 +80,7 @@
     border: 1px solid var(--text-color);
     border-radius: 5px;
     font-size: 16px;
+    outline: none;
 }
 
 /* Boutons à droite avec même taille */
@@ -97,8 +98,17 @@
     text-align: center;
 }
 
+input.invalid {
+    border-color: red;
+}
+
 .profile-main .btn:hover {
     background-color: var(--primary-color);
+}
+
+#submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
 .success-message {

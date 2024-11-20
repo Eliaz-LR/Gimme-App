@@ -42,10 +42,6 @@
     transition: border 0.3s ease;
 }
 
-.form-group input:focus {
-    border-color: var(--accent-color);
-}
-
 .btn {
     background-color: var(--accent-color);
     color: #ffffff;
