@@ -49,13 +49,7 @@ public class OfferController {
 
     @GetMapping(params = "search", produces = "text/html")
     public String searchOffersHtml(@ModelAttribute OfferSearchDto offerSearchDto, Model model) {
-        Search searchObj = new Search();
-        searchObj.setSearchText(offerSearchDto.getSearch());
-        offerSearchDto.getCategory().ifPresent(searchObj::setCategory);
-        offerSearchDto.getCondition().ifPresent(searchObj::setCondition);
-        offerSearchDto.getPostcode().ifPresent(searchObj::setPostcode);
-        offerSearchDto.getKeywords().ifPresent(searchObj::setKeywords);
-        offerSearchDto.getCanBeSentByPost().ifPresent(searchObj::setCanBeSentByPost);
+        Search searchObj = new Search(offerSearchDto);
         List<Offer> offers = offerService.searchOffers(searchObj);
         model.addAttribute("offers", offers);
         return "offers-search";
@@ -64,13 +58,7 @@ public class OfferController {
     @GetMapping(params = "search", produces = "application/json")
     @ResponseBody
     public List<Offer> searchOffersJson(@ModelAttribute OfferSearchDto offerSearchDto) {
-        Search searchObj = new Search();
-        searchObj.setSearchText(offerSearchDto.getSearch());
-        offerSearchDto.getCategory().ifPresent(searchObj::setCategory);
-        offerSearchDto.getCondition().ifPresent(searchObj::setCondition);
-        offerSearchDto.getPostcode().ifPresent(searchObj::setPostcode);
-        offerSearchDto.getKeywords().ifPresent(searchObj::setKeywords);
-        offerSearchDto.getCanBeSentByPost().ifPresent(searchObj::setCanBeSentByPost);
+        Search searchObj = new Search(offerSearchDto);
         return offerService.searchOffers(searchObj);
     }
 
