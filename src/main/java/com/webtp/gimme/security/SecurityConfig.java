@@ -33,7 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/error").permitAll()
-                        //.requestMatchers("**").permitAll()  // For dev purpose only
+                        .requestMatchers("**").permitAll()  // For dev purpose only
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

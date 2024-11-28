@@ -2,8 +2,6 @@ package com.webtp.gimme.service;
 
 import com.webtp.gimme.model.Offer;
 import com.webtp.gimme.model.Search;
-import com.webtp.gimme.model.Offer.Category;
-import com.webtp.gimme.model.Offer.Condition;
 import com.webtp.gimme.repository.OfferRepository;
 import java.util.List;
 import java.util.Optional;

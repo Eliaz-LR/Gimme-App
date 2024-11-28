@@ -1,7 +1,6 @@
 package com.webtp.gimme.repository;
 
 import com.webtp.gimme.model.Offer;
-import com.webtp.gimme.model.Search;
 
 import java.util.List;
 

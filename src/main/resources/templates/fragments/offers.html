@@ -23,6 +23,13 @@
                 <strong>Code postal :</strong> <span th:text="${offer.postcode}"></span>
             </p>
 
+            <!-- Bouton d'ajout au favoris -->
+            <div sec:authorize="isAuthenticated()">
+                <form action="/offers/{offersId}/addToFavorites" method="POST" th:action="@{/offers/{offersId}/addToFavorites(offersId=${offer.id})}">
+                    <button type="submit" class="btn">Ajouter aux favoris</button>
+                </form>
+            </div>
+
             <!-- Affichage de la possibilité d'envoi par la poste -->
             <p class="offer-post-option" th:if="${offer.canBeSentByPost}">
                 <strong>Envoi possible par la poste :</strong> Oui

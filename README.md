@@ -15,8 +15,9 @@ Windows: \
 - [ ] BDD externe optionnelle
 - [ ] Front : Filtrage des recherches (categories, etat etc...)
 - [ ] Entetes de cahce et requetes conditionnelles (JSP)
-- [ ] Sauvegarde des recherches
-- [ ] Notifications sur les recherches sauvegardees
-- [ ] Favoris annonce 
-- [ ] Lots d'objets pour transaction groupée
-- [ ] Messagerie interne
+- [ ] Sauvegarde des recherches ELIAZ
+- [ ] Notifications sur les recherches sauvegardees ELIAZ
+- [X] Favoris annonce (ajout/suppression) ADIS
+- [ ] Favoris sur le front LORENZO
+- [ ] Lots d'objets pour transaction groupée 
+- [ ] Messagerie interne ADIS

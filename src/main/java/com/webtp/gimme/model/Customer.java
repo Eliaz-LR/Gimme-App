@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.List;
 
 @Entity
@@ -25,4 +24,7 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private List<Search> savedSearches;
+
+    @OneToMany
+    private List<Offer> favoriteOffers;
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,20 +15,36 @@ import org.springframework.web.bind.annotation.*;
 import com.webtp.gimme.dto.OfferSearchDto;
 import com.webtp.gimme.model.Offer;
 import com.webtp.gimme.model.Search;
+import com.webtp.gimme.security.CustomerDetails;
 import com.webtp.gimme.service.OfferService;
+
+import com.webtp.gimme.service.CustomerService;
 
 import java.util.UUID;
 
 @Controller
 @RequestMapping("/offers")
 public class OfferController {
+
     @Autowired
     private OfferService offerService;
+    @Autowired
+    private CustomerService customerService;
 
     @GetMapping(produces = "application/json")
     @ResponseBody
     public List<Offer> getAllOffers() {
         return offerService.getOffers();
+    }
+
+    @PostMapping("/{offerId}/addToFavorites") 
+    public String favoriteOfferAdd(@PathVariable UUID offerId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
+        String username = customerDetails.getUsername();
+        Offer offer = offerService.getOfferByID(offerId);
+        customerService.addFavoriteOffer(username, offer);
+        return "offers";
     }
 
     @GetMapping(produces = "text/html")
