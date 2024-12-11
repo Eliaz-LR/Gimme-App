@@ -37,4 +37,19 @@ public class ViewController {
     public String profileDelete() {
         return "profile-delete";
     }
+
+    @GetMapping("/profile-favoris")
+    public String profileFavoris() {
+        return "profile-favoris";
+    }
+
+    @GetMapping("/profile-reception")
+    public String profileReception() {
+        return "profile-reception";
+    }
+
+    @GetMapping("/create-offer")
+    public String createOffer() {
+        return "create-offer";
+    }
 }

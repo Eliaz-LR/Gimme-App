@@ -31,7 +31,7 @@
     </div>
     <div class="main-buttons">
         <a href="/offers" class="btn">Annonces</a>
-        <a href="#deposer-annonce" class="btn">Déposer une annonce</a>
+        <a href="/create-offer" class="btn">Déposer une annonce</a>
     </div>
     <div class="auth-buttons">
         <div sec:authorize="!isAuthenticated()">
@@ -39,8 +39,8 @@
             <a href="/register" class="btn register-btn">Register</a>
         </div>
         <div sec:authorize="isAuthenticated()">
-            <a href="/inbox" class="btn inbox-btn">Boîte de réception</a>
-            <a href="/favorites" class="btn favorites-btn">Favoris</a>
+            <a href="/profile-reception" class="btn inbox-btn">Boîte de réception</a>
+            <a href="/profile-favoris" class="btn favorites-btn">Favoris</a>
             <a href="/profile-update" class="btn profile-btn">Profil</a>
             <form th:action="@{/logout}" method="post" style="display: inline;">
                 <button type="submit" class="btn logout-btn">Logout</button>
