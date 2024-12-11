@@ -2,10 +2,10 @@
     <div class="logo">
         <h1><a href="/">Gimme</a></h1>
     </div>
-    <nav class="nav-links">
+    <div class="main-actions">
         <section class="search-bar">
             <form action="/offers" method="get" class="search-form">
-                    <input
+                <input
                         type="text"
                         name="search"
                         id="searchInput"
@@ -14,30 +14,33 @@
                         role="combobox"
                         autocomplete="off"
                         class="search-input"
-                    />
-                    <button type="submit" class="search-button" title="Rechercher" aria-label="Rechercher">
-                        <svg
+                />
+                <button type="submit" class="search-button" title="Rechercher" aria-label="Rechercher">
+                    <svg
                             viewBox="0 0 24 24"
                             fill="currentColor"
                             class="search-icon"
                             aria-hidden="true"
-                        >
-                            <path fill-rule="evenodd" d="m10.5,3.95c-3.62,0-6.55,2.93-6.55,6.55s2.93,6.55,6.55,6.55,6.55-2.93,6.55-6.55-2.93-6.55-6.55-6.55ZM2,10.5C2,5.81,5.81,2,10.5,2s8.5,3.81,8.5,8.5-3.81,8.5-8.5,8.5S2,15.2,2,10.5Z"></path>
-                            <path fill-rule="evenodd" d="m15.13,15.13c.38-.38,1-.38,1.38,0l5.21,5.21c.38.38.38,1,0,1.38-.38.38-1,.38-1.38,0l-5.21-5.21c-.38-.38-.38-1,0-1.38Z"></path>
-                        </svg>
-                    </button>
+                    >
+                        <path fill-rule="evenodd" d="m10.5,3.95c-3.62,0-6.55,2.93-6.55,6.55s2.93,6.55,6.55,6.55,6.55-2.93,6.55-6.55-2.93-6.55-6.55-6.55ZM2,10.5C2,5.81,5.81,2,10.5,2s8.5,3.81,8.5,8.5-3.81,8.5-8.5,8.5S2,15.2,2,10.5Z"></path>
+                        <path fill-rule="evenodd" d="m15.13,15.13c.38-.38,1-.38,1.38,0l5.21,5.21c.38.38.38,1,0,1.38-.38.38-1,.38-1.38,0l-5.21-5.21c-.38-.38-.38-1,0-1.38Z"></path>
+                    </svg>
+                </button>
             </form>
-          </section>
-        <a href="/offers">Annonces</a>
-        <a href="#deposer-annonce">Déposer une annonce</a>
-        <a href="#contact">Contact</a>
-    </nav>
+        </section>
+    </div>
+    <div class="main-buttons">
+        <a href="/offers" class="btn">Annonces</a>
+        <a href="#deposer-annonce" class="btn">Déposer une annonce</a>
+    </div>
     <div class="auth-buttons">
         <div sec:authorize="!isAuthenticated()">
             <a href="/login" class="btn login-btn">Login</a>
             <a href="/register" class="btn register-btn">Register</a>
         </div>
         <div sec:authorize="isAuthenticated()">
+            <a href="/inbox" class="btn inbox-btn">Boîte de réception</a>
+            <a href="/favorites" class="btn favorites-btn">Favoris</a>
             <a href="/profile-update" class="btn profile-btn">Profil</a>
             <form th:action="@{/logout}" method="post" style="display: inline;">
                 <button type="submit" class="btn logout-btn">Logout</button>
