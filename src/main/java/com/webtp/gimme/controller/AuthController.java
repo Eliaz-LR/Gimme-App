@@ -1,11 +1,17 @@
 package com.webtp.gimme.controller;
 
+import com.webtp.gimme.dto.request.LoginRequestDTO;
 import com.webtp.gimme.dto.request.RegisterRequestDTO;
 import com.webtp.gimme.dto.request.UpdateProfileRequestDTO;
+import com.webtp.gimme.dto.response.LoginResponseDTO;
+import com.webtp.gimme.dto.response.RegisterResponseDTO;
+import com.webtp.gimme.model.Customer;
 import com.webtp.gimme.security.CustomerDetails;
+import com.webtp.gimme.security.jwt.JwtService;
 import com.webtp.gimme.service.CustomerService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,13 +29,26 @@ public class AuthController {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private JwtService jwtService;
+
     @PostMapping("/register")
-    public ResponseEntity<?> register(@ModelAttribute RegisterRequestDTO registerDTO, RedirectAttributes redirectAttributes) {
-        customerService.registerCustomer(registerDTO);
-        redirectAttributes.addFlashAttribute("successMessage", "Inscription réussie ! Vous pouvez maintenant vous connecter.");
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "/login");
-        return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+    public ResponseEntity<?> register(@RequestBody @Valid RegisterRequestDTO registerRequestDTO) {
+        Customer customer = customerService.registerCustomer(registerRequestDTO);
+        String location = "/customers/" + customer.getUsername();
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .header(HttpHeaders.LOCATION, location)
+                .body(new RegisterResponseDTO("Utilisateur enregistré avec succès.", customer.getUsername()));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDTO loginRequestDTO) {
+        CustomerDetails customerDetails = customerService.logCustomer(loginRequestDTO);
+        String jwt = jwtService.generateToken(customerDetails);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new LoginResponseDTO("Authentification réussie", jwt));
     }
 
     @PostMapping("/customer")

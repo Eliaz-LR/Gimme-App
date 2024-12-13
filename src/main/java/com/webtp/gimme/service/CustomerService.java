@@ -1,5 +1,6 @@
 package com.webtp.gimme.service;
 
+import com.webtp.gimme.dto.request.LoginRequestDTO;
 import com.webtp.gimme.dto.request.RegisterRequestDTO;
 import com.webtp.gimme.dto.request.UpdateProfileRequestDTO;
 import com.webtp.gimme.exception.UsernameAlreadyExistsException;
@@ -9,8 +10,12 @@ import com.webtp.gimme.repository.CustomerRepository;
 
 import java.util.List;
 
+import com.webtp.gimme.security.CustomerDetails;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +27,9 @@ public class CustomerService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     public List<Customer> getCustomers() {
         return customerRepository.findAll();
@@ -73,18 +81,6 @@ public class CustomerService {
         return null;
     }
 
-    public void registerCustomer(RegisterRequestDTO registerRequestDTO) {
-        if (customerRepository.existsById(registerRequestDTO.getUsername())) {
-            throw new UsernameAlreadyExistsException("Nom d'utilisateur déjà pris");
-        }
-
-        Customer customer = new Customer();
-        customer.setUsername(registerRequestDTO.getUsername());
-        customer.setName(registerRequestDTO.getName());
-        customer.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
-        customerRepository.save(customer);
-    }
-
     public void updateCustomer(UpdateProfileRequestDTO updateProfileRequestDTO, Customer customer) {
         if (Strings.isNotBlank(updateProfileRequestDTO.getName())) {
             customer.setName(updateProfileRequestDTO.getName());
@@ -93,5 +89,23 @@ public class CustomerService {
             customer.setPassword(passwordEncoder.encode(updateProfileRequestDTO.getPassword()));
         }
         customerRepository.save(customer);
+    }
+
+    public Customer registerCustomer(RegisterRequestDTO registerRequestDTO) {
+        if (customerRepository.existsById(registerRequestDTO.getUsername())) {
+            throw new UsernameAlreadyExistsException("Ce nom d'utilisateur est déjà pris.");
+        }
+        Customer customer = new Customer();
+        customer.setUsername(registerRequestDTO.getUsername());
+        customer.setName(registerRequestDTO.getName());
+        customer.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
+        return customerRepository.save(customer);
+    }
+
+    public CustomerDetails logCustomer(LoginRequestDTO loginRequestDTO) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword())
+        );
+        return (CustomerDetails) authentication.getPrincipal();
     }
 }
