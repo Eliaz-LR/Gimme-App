@@ -19,15 +19,15 @@ document.getElementById("login-form").addEventListener("submit", async function 
         });
 
         if (response.ok) {
-            // Redirection en cas de succès
+            const responseData = await response.json();
+            localStorage.setItem("jwt", responseData.token);
+
             window.location.href = "/";
         } else {
-            // Gestion des erreurs
             const errorResponse = await response.json();
-            displayErrorMessage(errorResponse.message || "Identifiants incorrects.");
+            displayErrorMessage(errorResponse.message);
         }
     } catch (error) {
-        // Gestion des erreurs inattendues
         displayErrorMessage("Une erreur inattendue s'est produite. Veuillez réessayer.");
     }
 });
@@ -36,6 +36,6 @@ function displayErrorMessage(message) {
     const errorDiv = document.getElementById("error-message");
     const errorText = document.getElementById("error-text");
 
-    errorText.textContent = message; // Insère le message dans le paragraphe
-    errorDiv.style.display = "block"; // Affiche le conteneur d'erreur
+    errorText.textContent = message;
+    errorDiv.style.display = "block";
 }

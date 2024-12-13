@@ -9,6 +9,7 @@ import com.webtp.gimme.model.Customer;
 import com.webtp.gimme.security.CustomerDetails;
 import com.webtp.gimme.security.jwt.JwtService;
 import com.webtp.gimme.service.CustomerService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -43,9 +44,16 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDTO loginRequestDTO) {
+    public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDTO loginRequestDTO, HttpServletResponse response) {
         CustomerDetails customerDetails = customerService.logCustomer(loginRequestDTO);
         String jwt = jwtService.generateToken(customerDetails);
+        Cookie cookie = new Cookie("JWT", jwt);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(3600);
+        response.addCookie(cookie);
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new LoginResponseDTO("Authentification réussie", jwt));
