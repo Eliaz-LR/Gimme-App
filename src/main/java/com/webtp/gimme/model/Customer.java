@@ -1,6 +1,7 @@
 package com.webtp.gimme.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,6 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Search> savedSearches;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Offer> favoriteOffers;
 }

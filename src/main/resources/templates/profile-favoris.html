@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/offersc.css">
     <title>Gimme - Profile</title>
     <link rel="icon" href="/images/icon.png" type="image/png">
 </head>
@@ -14,7 +15,10 @@
 
 <div class="profile-container">
     <div th:replace="fragments/profile-nav :: div"></div>
-    <p>En développement</p>
+
+    <section class="offers-results">
+        <div th:replace="~{fragments/offers :: div}"></div>
+    </section>
 </div>
 </main>
 
