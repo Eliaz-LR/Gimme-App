@@ -1,11 +1,13 @@
 package com.webtp.gimme.security;
 
 import com.webtp.gimme.model.Customer;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
+@Getter
 public class CustomerDetails implements UserDetails {
     private final Customer customer;
 
@@ -26,10 +28,6 @@ public class CustomerDetails implements UserDetails {
     @Override
     public String getUsername() {
         return customer.getUsername();
-    }
-
-    public Customer getCustomer() {
-        return customer;
     }
 
     @Override

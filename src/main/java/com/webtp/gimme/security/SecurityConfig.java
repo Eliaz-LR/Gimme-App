@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .logout(form -> form
                         .logoutUrl("/logout")
                         .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID")
+                        .deleteCookies("JSESSIONID", "JWT")
                         .permitAll()
                 )
                 .sessionManagement(session -> session

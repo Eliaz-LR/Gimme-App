@@ -2,7 +2,6 @@ package com.webtp.gimme.security;
 
 import com.webtp.gimme.model.Customer;
 import com.webtp.gimme.repository.CustomerRepository;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

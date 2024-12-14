@@ -28,9 +28,6 @@ public class CustomerService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
     public List<Customer> getCustomers() {
         return customerRepository.findAll();
     }
@@ -89,23 +86,5 @@ public class CustomerService {
             customer.setPassword(passwordEncoder.encode(updateProfileRequestDTO.getPassword()));
         }
         customerRepository.save(customer);
-    }
-
-    public Customer registerCustomer(RegisterRequestDTO registerRequestDTO) {
-        if (customerRepository.existsById(registerRequestDTO.getUsername())) {
-            throw new UsernameAlreadyExistsException("Ce nom d'utilisateur est déjà pris.");
-        }
-        Customer customer = new Customer();
-        customer.setUsername(registerRequestDTO.getUsername());
-        customer.setName(registerRequestDTO.getName());
-        customer.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
-        return customerRepository.save(customer);
-    }
-
-    public CustomerDetails logCustomer(LoginRequestDTO loginRequestDTO) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword())
-        );
-        return (CustomerDetails) authentication.getPrincipal();
     }
 }
