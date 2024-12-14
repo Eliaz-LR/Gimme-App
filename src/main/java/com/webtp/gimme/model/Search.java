@@ -10,7 +10,7 @@ import lombok.Setter;
 import java.util.List;
 import java.util.UUID;
 
-import com.webtp.gimme.dto.OfferSearchDto;
+import com.webtp.gimme.dto.request.OfferSearchRequestDto;
 
 @Entity
 @Getter
@@ -20,13 +20,13 @@ public class Search {
     public Search() {
     }
 
-    public Search(OfferSearchDto offerSearchDto) {
-        this.searchText = offerSearchDto.getSearch();
-        offerSearchDto.getCategory().ifPresent(this::setCategory);
-        offerSearchDto.getCondition().ifPresent(this::setCondition);
-        offerSearchDto.getPostcode().ifPresent(this::setPostcode);
-        offerSearchDto.getKeywords().ifPresent(this::setKeywords);
-        offerSearchDto.getCanBeSentByPost().ifPresent(this::setCanBeSentByPost);
+    public Search(OfferSearchRequestDto offerSearchRequestDto) {
+        this.searchText = offerSearchRequestDto.getSearch();
+        offerSearchRequestDto.getCategory().ifPresent(this::setCategory);
+        offerSearchRequestDto.getCondition().ifPresent(this::setCondition);
+        offerSearchRequestDto.getPostcode().ifPresent(this::setPostcode);
+        offerSearchRequestDto.getKeywords().ifPresent(this::setKeywords);
+        offerSearchRequestDto.getCanBeSentByPost().ifPresent(this::setCanBeSentByPost);
     }
 
     @Id

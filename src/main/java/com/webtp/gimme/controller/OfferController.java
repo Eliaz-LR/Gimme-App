@@ -6,19 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.webtp.gimme.dto.OfferSearchDto;
+import com.webtp.gimme.dto.request.OfferSearchRequestDto;
 import com.webtp.gimme.model.Offer;
 import com.webtp.gimme.model.Search;
-import com.webtp.gimme.security.CustomerDetails;
 import com.webtp.gimme.service.OfferService;
-
-import com.webtp.gimme.service.CustomerService;
 
 import java.util.UUID;
 
@@ -54,8 +49,8 @@ public class OfferController {
     }
 
     @GetMapping(params = "search", produces = "text/html")
-    public String searchOffersHtml(@ModelAttribute OfferSearchDto offerSearchDto, Model model) {
-        Search searchObj = new Search(offerSearchDto);
+    public String searchOffersHtml(@ModelAttribute OfferSearchRequestDto offerSearchRequestDto, Model model) {
+        Search searchObj = new Search(offerSearchRequestDto);
         List<Offer> offers = offerService.searchOffers(searchObj);
         model.addAttribute("offers", offers);
         return "offers-search";
@@ -63,8 +58,8 @@ public class OfferController {
 
     @GetMapping(params = "search", produces = "application/json")
     @ResponseBody
-    public List<Offer> searchOffersJson(@ModelAttribute OfferSearchDto offerSearchDto) {
-        Search searchObj = new Search(offerSearchDto);
+    public List<Offer> searchOffersJson(@ModelAttribute OfferSearchRequestDto offerSearchRequestDto) {
+        Search searchObj = new Search(offerSearchRequestDto);
         return offerService.searchOffers(searchObj);
     }
 

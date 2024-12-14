@@ -1,4 +1,4 @@
-package com.webtp.gimme.dto;
+package com.webtp.gimme.dto.request;
 
 import lombok.Data;
 import com.webtp.gimme.model.Offer;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Data
-public class OfferSearchDto {
+public class OfferSearchRequestDto {
     private String search;
 
     private Optional<Offer.Category> category = Optional.empty();

@@ -8,7 +8,7 @@ import com.webtp.gimme.model.Customer;
 import com.webtp.gimme.security.CustomerDetails;
 import com.webtp.gimme.security.jwt.JwtService;
 import com.webtp.gimme.service.AuthService;
-import jakarta.servlet.http.Cookie;
+import com.webtp.gimme.utils.SecurityUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,18 +41,9 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDTO loginRequestDTO, HttpServletResponse response) {
         CustomerDetails customerDetails = authService.logCustomer(loginRequestDTO);
         String jwt = jwtService.generateToken(customerDetails);
-        setCookie(response, jwt);
+        SecurityUtils.setCookie(response, jwt);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(new LoginResponseDTO("Authentification réussie", jwt));
-    }
-
-    private void setCookie(HttpServletResponse response, String jwt) {
-        Cookie cookie = new Cookie("JWT", jwt);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true);
-        cookie.setPath("/");
-        cookie.setMaxAge(3600);
-        response.addCookie(cookie);
     }
 }

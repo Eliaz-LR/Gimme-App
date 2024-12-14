@@ -1,6 +1,6 @@
 package com.webtp.gimme.controller;
 
-import com.webtp.gimme.dto.OfferSearchDto;
+import com.webtp.gimme.dto.request.OfferSearchRequestDto;
 import com.webtp.gimme.model.Customer;
 import com.webtp.gimme.model.Search;
 import com.webtp.gimme.service.SearchService;
@@ -20,11 +20,11 @@ public class SearchController {
     private SearchService searchService;
 
     @PostMapping
-    public ResponseEntity<Search> saveSearch(@RequestBody OfferSearchDto offerSearchDto) {
+    public ResponseEntity<Search> saveSearch(@RequestBody OfferSearchRequestDto offerSearchRequestDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = (Customer) authentication.getPrincipal();
 
-        Search search = new Search(offerSearchDto);
+        Search search = new Search(offerSearchRequestDto);
         search.setCustomer(customer);
 
         Search savedSearch = searchService.saveSearch(search);

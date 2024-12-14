@@ -1,10 +1,6 @@
 package com.webtp.gimme.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,4 +44,7 @@ public class Offer {
     private Boolean canBeSentByPost = false;
 
     private Boolean isActive = true;
+
+    @OneToMany(mappedBy = "offer")
+    private List<Purchase> purchases;
 }

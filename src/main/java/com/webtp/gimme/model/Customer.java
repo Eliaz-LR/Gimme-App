@@ -28,4 +28,7 @@ public class Customer {
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<Offer> favoriteOffers;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Purchase> purchases;
 }

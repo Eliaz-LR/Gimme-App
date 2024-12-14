@@ -36,19 +36,11 @@ public class CustomerService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Customer getCustomer(String username, Authentication authentication) {
-        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
-        if (!customerDetails.getCustomer().getUsername().equals(username)) {
-            throw new AccessDeniedException("Vous n'avez pas les droits nécessaires pour récupérer cet utilisateur.");
-        }
+    public Customer getCustomer(String username) {
         return customerRepository.getCustomerByUsername(username);
     }
 
-    public Customer updateCustomer(UpdateProfileRequestDTO updateProfileRequestDTO, String username, Authentication authentication) {
-        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
-        if (!customerDetails.getCustomer().getUsername().equals(username)) {
-            throw new AccessDeniedException("Vous n'avez pas les droits nécessaires pour modifier cet utilisateur.");
-        }
+    public Customer updateCustomer(UpdateProfileRequestDTO updateProfileRequestDTO, String username) {
         Customer customer = customerRepository.getCustomerByUsername(username);
         if (Strings.isNotBlank(updateProfileRequestDTO.getName())) {
             customer.setName(updateProfileRequestDTO.getName());
@@ -60,28 +52,16 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public void deleteCustomer(String username, Authentication authentication) {
-        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
-        if (!customerDetails.getCustomer().getUsername().equals(username)) {
-            throw new AccessDeniedException("Vous n'avez pas les droits nécessaires pour supprimer cet utilisateur.");
-        }
+    public void deleteCustomer(String username) {
         customerRepository.deleteById(username);
         customerDetailsService.evictCache(username);
     }
 
-    public List<Offer> getFavoriteOffers(String username, Authentication authentication) {
-        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
-        if (!customerDetails.getCustomer().getUsername().equals(username)) {
-            throw new AccessDeniedException("Vous n'avez pas les droits nécessaires.");
-        }
+    public List<Offer> getFavoriteOffers(String username) {
         return customerRepository.getCustomerByUsername(username).getFavoriteOffers();
     }
 
-    public Customer addFavoriteOffer(String username, UUID offerId, Authentication authentication) {
-        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
-        if (!customerDetails.getCustomer().getUsername().equals(username)) {
-            throw new AccessDeniedException("Vous n'avez pas les droits nécessaires.");
-        }
+    public Customer addFavoriteOffer(String username, UUID offerId) {
         Customer customer = customerRepository.getCustomerByUsername(username);
         Offer offer = offerRepository.findById(offerId).orElse(null);
         if (offer == null) {
@@ -96,11 +76,7 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public Customer removeFavoriteOffer(String username, UUID offerId, Authentication authentication) {
-        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
-        if (!customerDetails.getCustomer().getUsername().equals(username)) {
-            throw new AccessDeniedException("Vous n'avez pas les droits nécessaires.");
-        }
+    public Customer removeFavoriteOffer(String username, UUID offerId) {
         Customer customer = customerRepository.getCustomerByUsername(username);
         Offer offer = offerRepository.findById(offerId).orElse(null);
         if (offer == null) {

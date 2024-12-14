@@ -4,7 +4,7 @@ import com.webtp.gimme.dto.request.UpdateProfileRequestDTO;
 import com.webtp.gimme.model.Customer;
 import com.webtp.gimme.model.Offer;
 import com.webtp.gimme.service.CustomerService;
-import jakarta.servlet.http.Cookie;
+import com.webtp.gimme.utils.SecurityUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,66 +20,59 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/customers/{username}")
 public class CustomerController {
     
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/customers/{username}")
+    @GetMapping
     public ResponseEntity<?> customerGet(@PathVariable String username) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Customer user = customerService.getCustomer(username, authentication);
+        SecurityUtils.checkAuthorization(username);
+        Customer user = customerService.getCustomer(username);
         return ResponseEntity.ok(user);
     }
 
-    @DeleteMapping("/customers/{username}")
+    @DeleteMapping
     public ResponseEntity<?> customerDelete(@PathVariable String username, HttpServletRequest request, HttpServletResponse response) {
+        SecurityUtils.checkAuthorization(username);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        customerService.deleteCustomer(username, authentication);
+        customerService.deleteCustomer(username);
         new SecurityContextLogoutHandler().logout(request, response, authentication);
-        deleteCookie(response);
+        SecurityUtils.deleteCookie(response);
         return ResponseEntity
                 .noContent()
                 .build();
     }
 
-    @PutMapping("/customers/{username}")
+    @PutMapping
     public ResponseEntity<?> customerPut(@PathVariable String username, @RequestBody UpdateProfileRequestDTO updateProfileRequestDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Customer customer = customerService.updateCustomer(updateProfileRequestDTO, username, authentication);
+        SecurityUtils.checkAuthorization(username);
+        Customer customer = customerService.updateCustomer(updateProfileRequestDTO, username);
         return ResponseEntity.ok(customer);
     }
 
-    @GetMapping("/customers/{username}/favoriteOffers")
+    @GetMapping("/favoriteOffers")
     public ResponseEntity<?> customerGetFavoriteOffers(@PathVariable String username) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        List<Offer> favoriteOffers = customerService.getFavoriteOffers(username, authentication);
+        SecurityUtils.checkAuthorization(username);
+        List<Offer> favoriteOffers = customerService.getFavoriteOffers(username);
         if (favoriteOffers.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(favoriteOffers);
     }
 
-    @PutMapping("/customers/{username}/favoriteOffers/{offerId}")
+    @PutMapping("/favoriteOffers/{offerId}")
     public ResponseEntity<?> customerPutFavoriteOffer(@PathVariable String username, @PathVariable UUID offerId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Customer customer = customerService.addFavoriteOffer(username, offerId, authentication);
+        SecurityUtils.checkAuthorization(username);
+        Customer customer = customerService.addFavoriteOffer(username, offerId);
         return ResponseEntity.ok(customer);
     }
 
-    @DeleteMapping("/customers/{username}/favoriteOffers/{offerId}")
+    @DeleteMapping("/favoriteOffers/{offerId}")
     public ResponseEntity<?> customerDeleteFavoriteOffer(@PathVariable String username, @PathVariable String offerId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Customer customer = customerService.removeFavoriteOffer(username, UUID.fromString(offerId), authentication);
+        SecurityUtils.checkAuthorization(username);
+        Customer customer = customerService.removeFavoriteOffer(username, UUID.fromString(offerId));
         return ResponseEntity.ok(customer);
-    }
-
-    private void deleteCookie(HttpServletResponse response) {
-        Cookie cookie = new Cookie("JWT", null);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true);
-        cookie.setPath("/");
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
     }
 }
