@@ -25,12 +25,11 @@
 
             <!-- Bouton d'ajout au favoris -->
             <div sec:authorize="isAuthenticated()">
-                <form action="/offers/{offersId}/addToFavorites" method="POST" th:action="@{/offers/{offersId}/addToFavorites(offersId=${offer.id})}">
+                <form class="favorite-form" method="POST" th:action="@{/customers/{id}/favoriteOffers/{offerId}(id=${username}, offerId=${offer.id})}">
                     <button type="submit" class="btn">Ajouter aux favoris</button>
                 </form>
             </div>
 
-            <!-- Affichage de la possibilité d'envoi par la poste -->
             <p class="offer-post-option" th:if="${offer.canBeSentByPost}">
                 <strong>Envoi possible par la poste :</strong> Oui
             </p>
@@ -44,4 +43,6 @@
     <div th:if="${#lists.isEmpty(offers)}">
         <p>Aucune offre trouvée.</p>
     </div>
+
+    <script src="js/offers.js"></script>
 </div>

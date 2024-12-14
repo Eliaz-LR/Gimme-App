@@ -28,23 +28,11 @@ public class OfferController {
 
     @Autowired
     private OfferService offerService;
-    @Autowired
-    private CustomerService customerService;
 
     @GetMapping(produces = "application/json")
     @ResponseBody
     public List<Offer> getAllOffers() {
         return offerService.getOffers();
-    }
-
-    @PostMapping("/{offerId}/addToFavorites") 
-    public String favoriteOfferAdd(@PathVariable UUID offerId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
-        String username = customerDetails.getUsername();
-        Offer offer = offerService.getOfferByID(offerId);
-        customerService.addFavoriteOffer(username, offer);
-        return "offers";
     }
 
     @GetMapping(produces = "text/html")

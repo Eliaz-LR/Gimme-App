@@ -30,6 +30,15 @@ public class GlobalExceptionHandler {
                 .body(errors);
     }
 
+    @ExceptionHandler(BodyNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleBodyNotValidExceptions(BodyNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", ex.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(errors);
+    }
+
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<?> handleBadCredentialsException(BadCredentialsException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -70,6 +79,13 @@ public class GlobalExceptionHandler {
         Map<String, String> error = new HashMap<>();
         error.put("message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+    }
+
+    @ExceptionHandler(RessourceNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleOfferNotFoundException(RessourceNotFoundException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
     @ExceptionHandler(Exception.class)

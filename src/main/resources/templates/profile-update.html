@@ -18,14 +18,15 @@
     <!-- Section principale -->
     <div class="profile-main">
 
-        <div th:if="${successMessage}" class="success-message">
-            <p th:text="${successMessage}"></p>
+        <div id="success-message" class="success-message" style="display: none;">
+            <p id="success-text"></p>
         </div>
+
 
         <!-- Mise à jour du profil -->
         <section id="update-profile">
             <h2>Mettre à jour mon profil</h2>
-            <form id="update-form" action="/customer" method="POST" th:action="@{/customer}">
+            <form id="update-form">
                 <label for="username">Nom d'utilisateur :</label>
                 <input type="text" id="username" name="username" th:value="${customer.username}" readonly>
 
@@ -38,7 +39,7 @@
                 <label for="confirm-password">Confirmer le mot de passe :</label>
                 <input type="password" id="confirm-password" name="confirm-password">
 
-                <button type="submit" id="submit-button" class="btn small-btn">Mettre à jour</button>
+                <button type="button" id="submit-button" class="btn small-btn">Mettre à jour</button>
             </form>
         </section>
     </div>
@@ -47,6 +48,7 @@
 <div th:replace="~{fragments/footer :: footer}"></div>
 
 <script src="js/password-validation.js"></script>
+<script src="js/update-profile.js"></script>
 
 </body>
 </html>

@@ -1,29 +1,23 @@
 package com.webtp.gimme.controller;
 
 import com.webtp.gimme.dto.request.UpdateProfileRequestDTO;
-import com.webtp.gimme.dto.response.RegisterResponseDTO;
 import com.webtp.gimme.model.Customer;
 import com.webtp.gimme.model.Offer;
-import com.webtp.gimme.security.CustomerDetails;
 import com.webtp.gimme.service.CustomerService;
-import com.webtp.gimme.service.OfferService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
-import java.util.UUID;
 
-import java.net.URI;
-import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class CustomerController {
@@ -31,29 +25,11 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    private OfferService offerService;
-
-    @GetMapping("/users/{username}")
-    public ResponseEntity<Customer> userGet(@PathVariable String username) {
-        Customer user = customerService.getCustomer(username);
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+    @GetMapping("/customers/{username}")
+    public ResponseEntity<?> customerGet(@PathVariable String username) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Customer user = customerService.getCustomer(username, authentication);
         return ResponseEntity.ok(user);
-    }
-
-    @GetMapping("/users")
-    public List<Customer> usersGet() {
-        return customerService.getCustomers();
-    }
-
-    @PostMapping("/users")
-    public ResponseEntity<String> userPost(@RequestBody Customer user) {
-        int status = customerService.createCustomer(user);
-        if (status == 409) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
-        }
-        return ResponseEntity.created(URI.create("/user/" + user.getUsername())).build();
     }
 
     @DeleteMapping("/customers/{username}")
@@ -67,33 +43,35 @@ public class CustomerController {
                 .build();
     }
 
-    @PutMapping("/users/{username}")
-    public String userPut(@RequestBody Customer user) {
-        customerService.updateCustomer(user);
-        return "user updated";
-    }
-
-    @DeleteMapping("/users/{username}/favoriteOffer/{offerId}") 
-    public String favoriteOfferDelete(@PathVariable String username, @PathVariable UUID offerId) {
-        Offer offer = offerService.getOfferByID(offerId);
-        customerService.removeFavoriteOffer(username, offer);
-        return "favorite offer removed";
-    }
-
-    @GetMapping("/users/{username}/favoriteOffers")
-    public List<Offer> getFavoriteOffers(@PathVariable String username) {
-        return customerService.getFavoriteOffers(username);
-    }
-
-    @PostMapping("/customer")
-    public ResponseEntity<?> updateProfile(@ModelAttribute UpdateProfileRequestDTO updateProfileRequestDTO, RedirectAttributes redirectAttributes) {
+    @PutMapping("/customers/{username}")
+    public ResponseEntity<?> customerPut(@PathVariable String username, @RequestBody UpdateProfileRequestDTO updateProfileRequestDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
-        customerService.updateCustomer(updateProfileRequestDTO, customerDetails.getCustomer());
-        redirectAttributes.addFlashAttribute("successMessage", "Profil mis à jour avec succès");
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "/profile-update");
-        return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+        Customer customer = customerService.updateCustomer(updateProfileRequestDTO, username, authentication);
+        return ResponseEntity.ok(customer);
+    }
+
+    @GetMapping("/customers/{username}/favoriteOffers")
+    public ResponseEntity<?> customerGetFavoriteOffers(@PathVariable String username) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        List<Offer> favoriteOffers = customerService.getFavoriteOffers(username, authentication);
+        if (favoriteOffers.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(favoriteOffers);
+    }
+
+    @PutMapping("/customers/{username}/favoriteOffers/{offerId}")
+    public ResponseEntity<?> customerPutFavoriteOffer(@PathVariable String username, @PathVariable UUID offerId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.addFavoriteOffer(username, offerId, authentication);
+        return ResponseEntity.ok(customer);
+    }
+
+    @DeleteMapping("/customers/{username}/favoriteOffers/{offerId}")
+    public ResponseEntity<?> customerDeleteFavoriteOffer(@PathVariable String username, @PathVariable String offerId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.removeFavoriteOffer(username, UUID.fromString(offerId), authentication);
+        return ResponseEntity.ok(customer);
     }
 
     private void deleteCookie(HttpServletResponse response) {
