@@ -44,9 +44,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (jwt != null && jwtService.validateToken(jwt)) {
             String username = jwtService.getUsernameFromToken(jwt);
             CustomerDetails customerDetails = (CustomerDetails) customerDetailsService.loadUserByUsername(username);
-            Authentication authentication = jwtService.getAuthentication(jwt, customerDetails);
+            Authentication authentication = jwtService.getAuthentication(customerDetails);
             SecurityContextHolder.getContext().setAuthentication(authentication);
-        } else if ((token == null || !jwtService.validateToken(token)) && request.getHeader(HttpHeaders.USER_AGENT) != null) {
+        } else if ((token == null || !jwtService.validateToken(token)) && isBrowser(request)) {
             SecurityContextHolder.clearContext();
             String requestURI = request.getRequestURI();
             if (!requestURI.equals("/login")
@@ -62,10 +62,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (token != null && jwtService.validateToken(token)) {
             String username = jwtService.getUsernameFromToken(token);
             CustomerDetails customerDetails = (CustomerDetails) customerDetailsService.loadUserByUsername(username);
-            Authentication authentication = jwtService.getAuthentication(token, customerDetails);
+            Authentication authentication = jwtService.getAuthentication(customerDetails);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    private boolean isBrowser(HttpServletRequest request) {
+        String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
+        if (userAgent != null) {
+            return userAgent.contains("Chrome") || userAgent.contains("Firefox") ||
+                    userAgent.contains("Safari") || userAgent.contains("Edge") ||
+                    userAgent.contains("Opera");
+        }
+        return false;
     }
 }

@@ -1,11 +1,13 @@
 package com.webtp.gimme.controller;
 
 import com.webtp.gimme.dto.request.UpdateProfileRequestDTO;
+import com.webtp.gimme.dto.response.RegisterResponseDTO;
 import com.webtp.gimme.model.Customer;
 import com.webtp.gimme.model.Offer;
 import com.webtp.gimme.security.CustomerDetails;
 import com.webtp.gimme.service.CustomerService;
 import com.webtp.gimme.service.OfferService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,10 +56,15 @@ public class CustomerController {
         return ResponseEntity.created(URI.create("/user/" + user.getUsername())).build();
     }
 
-    @DeleteMapping("/users/{username}")
-    public String userDelete(@PathVariable String username) {
-        customerService.deleteCustomer(username);
-        return "user deleted";
+    @DeleteMapping("/customers/{username}")
+    public ResponseEntity<?> customerDelete(@PathVariable String username, HttpServletRequest request, HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        customerService.deleteCustomer(username, authentication);
+        new SecurityContextLogoutHandler().logout(request, response, authentication);
+        deleteCookie(response);
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 
     @PutMapping("/users/{username}")
@@ -89,16 +96,12 @@ public class CustomerController {
         return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
     }
 
-    @PostMapping("/profile-delete")
-    public ResponseEntity<?> deleteProfile(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
-        customerService.deleteCustomer(customerDetails.getCustomer().getUsername());
-        new SecurityContextLogoutHandler().logout(request, response, authentication);
-
-        redirectAttributes.addFlashAttribute("successMessage", "Votre compte a été supprimé avec succès.");
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "/login");
-        return new ResponseEntity<>(headers, HttpStatus.SEE_OTHER);
+    private void deleteCookie(HttpServletResponse response) {
+        Cookie cookie = new Cookie("JWT", null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
     }
 }

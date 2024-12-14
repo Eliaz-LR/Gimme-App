@@ -39,7 +39,10 @@ public class ViewController {
     }
 
     @GetMapping("/profile-delete")
-    public String profileDelete() {
+    public String profileDelete(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
+        model.addAttribute("username", customerDetails.getCustomer().getUsername());
         return "profile-delete";
     }
 
@@ -48,16 +51,16 @@ public class ViewController {
         return "profile-reception";
     }
 
-    @GetMapping("/create-offer")
-    public String createOffer() {
-        return "create-offer";
-    }
-
     @GetMapping("/profile-favoris")
     public String profileFavoris(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
         model.addAttribute("offers", (customerRepository.getCustomerByUsername(customerDetails.getCustomer().getUsername())).getFavoriteOffers());
         return "profile-favoris";
+    }
+
+    @GetMapping("/create-offer")
+    public String createOffer() {
+        return "create-offer";
     }
 }

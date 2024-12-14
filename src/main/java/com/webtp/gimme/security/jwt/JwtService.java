@@ -8,13 +8,11 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Date;
 
 @Service
@@ -31,7 +29,7 @@ public class JwtService {
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .claim("serverStartTime", serverStartTime.toString()) // Ajout du timestamp
+                .claim("serverStartTime", serverStartTime.toString())
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
@@ -64,7 +62,7 @@ public class JwtService {
         }
     }
 
-    public Authentication getAuthentication(String token, CustomerDetails customerDetails) {
+    public Authentication getAuthentication(CustomerDetails customerDetails) {
         return new UsernamePasswordAuthenticationToken(customerDetails, "", customerDetails.getAuthorities());
     }
 

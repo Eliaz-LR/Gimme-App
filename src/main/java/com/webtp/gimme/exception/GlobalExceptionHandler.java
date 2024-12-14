@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,21 +31,21 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<?> handleBadCredentialsExceptionException(BadCredentialsException ex) {
+    public ResponseEntity<?> handleBadCredentialsException(BadCredentialsException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("message", "Nom d'utilisateur ou mot de passe incorrect");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errors);
     }
 
     @ExceptionHandler(InternalAuthenticationServiceException.class)
-    public ResponseEntity<?> handleWrongCredentialsExceptionException(InternalAuthenticationServiceException ex) {
+    public ResponseEntity<?> handleWrongCredentialsException(InternalAuthenticationServiceException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("message", "Nom d'utilisateur ou mot de passe incorrect");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errors);
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<?> handleUsernameNotFoundExceptionException(UsernameNotFoundException ex) {
+    public ResponseEntity<?> handleUsernameNotFoundException(UsernameNotFoundException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("message", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
@@ -58,10 +59,17 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<Map<String, String>> handleHttpMessageNotReadableExceptionException(HttpMessageNotReadableException ex) {
+    public ResponseEntity<Map<String, String>> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         Map<String, String> error = new HashMap<>();
         error.put("message", "Le format JSON envoyé est invalide.");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Map<String, String>> handleAccessDeniedException(AccessDeniedException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
     }
 
     @ExceptionHandler(Exception.class)
