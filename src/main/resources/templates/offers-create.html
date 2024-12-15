@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/offers.css">
+    <title>Gimme - Créer une Offre</title>
+    <link rel="icon" href="/images/icon.png" type="image/png">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="create-offer-container">
+    <h2>Créer une Offre</h2>
+
+    <div id="success-message" class="success-message" style="display: none;">
+        <p id="success-text"></p>
+    </div>
+
+    <form method="POST" action="/offers/create" class="offer-form">
+        <!-- Nom de l'offre -->
+        <div class="form-group">
+            <label for="name">Nom de l'offre :</label>
+            <input type="text" id="name" name="name" required maxlength="100" placeholder="Entrez le nom de l'offre">
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+            <label for="description">Description :</label>
+            <textarea id="description" name="description" required rows="4" placeholder="Entrez une description"></textarea>
+        </div>
+
+        <!-- Catégorie -->
+        <div class="form-group">
+            <label for="category">Catégorie :</label>
+            <select id="category" name="category" required>
+                <option value="ELECTRONICS">Électronique</option>
+                <option value="FASHION">Mode</option>
+                <option value="HOME">Maison</option>
+                <option value="OTHER">Autre</option>
+            </select>
+        </div>
+
+        <!-- Condition -->
+        <div class="form-group">
+            <label for="condition">Condition :</label>
+            <select id="condition" name="condition" required>
+                <option value="NEW_WITH_TAG">Neuf (avec étiquette)</option>
+                <option value="NEW_WITHOUT_TAG">Neuf (sans étiquette)</option>
+                <option value="VERY_GOOD">Très bon état</option>
+                <option value="GOOD">Bon état</option>
+                <option value="ACCEPTABLE">Acceptable</option>
+                <option value="POOR">Mauvais état</option>
+            </select>
+        </div>
+
+        <!-- Code postal -->
+        <div class="form-group">
+            <label for="postcode">Code postal :</label>
+            <input type="text" id="postcode" name="postcode" required maxlength="10" placeholder="Entrez le code postal">
+        </div>
+
+        <!-- Mots-clés -->
+        <div class="form-group">
+            <label for="keywords">Mots-clés (séparés par des virgules) :</label>
+            <input type="text" id="keywords" name="keywords" placeholder="Exemple : électronique, ordinateur, smartphone">
+        </div>
+
+        <!-- Envoi possible par poste -->
+        <div class="form-group">
+            <label for="canBeSentByPost">Envoi possible par la poste :</label>
+            <input type="checkbox" id="canBeSentByPost" name="canBeSentByPost">
+        </div>
+
+        <!-- Bouton de soumission -->
+        <div class="form-group">
+            <button type="submit" class="btn">Créer l'offre</button>
+        </div>
+    </form>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="js/offers-create.js"></script>
+</body>
+</html>

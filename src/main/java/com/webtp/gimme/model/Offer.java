@@ -39,7 +39,7 @@ public class Offer {
 
     private String postcode;
 
-    private List<String> keywords = List.of();
+    private List<String> keywords;
 
     private Boolean canBeSentByPost = false;
 

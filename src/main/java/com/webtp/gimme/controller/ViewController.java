@@ -1,7 +1,5 @@
 package com.webtp.gimme.controller;
 
-import com.webtp.gimme.repository.CustomerRepository;
-import com.webtp.gimme.repository.PurchaseRepository;
 import com.webtp.gimme.security.CustomerDetails;
 import com.webtp.gimme.service.CustomerService;
 import com.webtp.gimme.service.PurchaseService;
@@ -40,7 +38,7 @@ public class ViewController {
     public String profileUpdate(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
-        model.addAttribute("customer", customerDetails.getCustomer());
+        model.addAttribute("customer", customerService.getCustomer(customerDetails.getUsername()));
         return "profile-update";
     }
 
@@ -75,6 +73,6 @@ public class ViewController {
 
     @GetMapping("/create-offer")
     public String createOffer() {
-        return "create-offer";
+        return "offers-create";
     }
 }
