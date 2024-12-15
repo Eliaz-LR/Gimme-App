@@ -92,6 +92,7 @@ public class ViewController {
         CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
         model.addAttribute("customer", customerService.getCustomer(customerDetails.getUsername()));
         model.addAttribute("offers", offerService.searchOffers(new Search(offerSearchRequestDto)));
+        model.addAttribute("searchDto", offerSearchRequestDto);
         return "offers-search";
     }
 
