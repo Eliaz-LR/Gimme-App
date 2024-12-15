@@ -1,15 +1,22 @@
 package com.webtp.gimme.controller;
 
+import com.webtp.gimme.dto.request.OfferSearchRequestDto;
+import com.webtp.gimme.model.Offer;
+import com.webtp.gimme.model.Search;
 import com.webtp.gimme.security.CustomerDetails;
 import com.webtp.gimme.service.CustomerService;
 import com.webtp.gimme.service.OfferService;
 import com.webtp.gimme.service.PurchaseService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 public class ViewController {
@@ -76,6 +83,14 @@ public class ViewController {
     public String getAllOffersHtml(Model model) {
         model.addAttribute("offers", offerService.getOffers());
         return "offers";
+    }
+
+    @GetMapping(value = "/offers", params = "search", produces = "text/html")
+    public String searchOffersHtml(@ModelAttribute OfferSearchRequestDto offerSearchRequestDto, Model model) {
+        Search searchObj = new Search(offerSearchRequestDto);
+        List<Offer> offers = offerService.searchOffers(searchObj);
+        model.addAttribute("offers", offers);
+        return "offers-search";
     }
 
     @GetMapping("/create-offer")

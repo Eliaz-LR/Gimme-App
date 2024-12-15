@@ -40,14 +40,6 @@ public class OfferController {
         }
     }
 
-    @GetMapping(params = "search", produces = "text/html")
-    public String searchOffersHtml(@ModelAttribute OfferSearchRequestDto offerSearchRequestDto, Model model) {
-        Search searchObj = new Search(offerSearchRequestDto);
-        List<Offer> offers = offerService.searchOffers(searchObj);
-        model.addAttribute("offers", offers);
-        return "offers-search";
-    }
-
     @GetMapping(params = "search", produces = "application/json")
     @ResponseBody
     public List<Offer> searchOffersJson(@ModelAttribute OfferSearchRequestDto offerSearchRequestDto) {
