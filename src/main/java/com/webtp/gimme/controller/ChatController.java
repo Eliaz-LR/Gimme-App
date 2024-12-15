@@ -43,21 +43,16 @@ public class ChatController {
     public ResponseEntity<?> createChat(@PathVariable String username, @RequestBody String recipient) {
         SecurityUtils.checkAuthorization(username);
         Chat chat = new Chat();
-        chat.setUsername(username);
-        chat.setUsernameOfRecipient(recipient);
+        List<String> participants = List.of(username, recipient);
+        chat.setUsername(participants);
         chatService.createChat(chat);
         return ResponseEntity.ok(chat);
     }
 
-    @PutMapping("/chats/{id}")
+    @PostMapping("/chats/{id}")
     public ResponseEntity<?> sendMessage(@PathVariable String username, @PathVariable UUID id, @RequestBody String msg) { 
         SecurityUtils.checkAuthorization(username);
-        Chat chat = chatService.getChat(username, id);
-        if (chat == null) {
-            return ResponseEntity.notFound().build();
-        }
-        chatService.sendMessage(chat, msg);
+        Chat chat = chatService.sendMessage(username, id, msg);
         return ResponseEntity.ok(chat);
     }
-    
 }

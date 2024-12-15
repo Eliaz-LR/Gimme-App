@@ -1,0 +1,17 @@
+<div class="chats-list">
+    <!-- Les résultats des chats seront affichés ici par le backend -->
+    <div th:each="chat : ${chats}">
+        <div class="chat-item">
+            <form th:action="@{/chat/{id}(id=${chat.id})}" method="get">
+                <button type="submit" class="chat-btn" th:text="${chat.username[0]}"></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Si aucun Chat n'est trouvée -->
+    <div th:if="${#lists.isEmpty(chats)}">
+        <p>Aucun chat trouvée.</p>
+    </div>
+
+    <script src="js/chats.js"></script>
+</div>

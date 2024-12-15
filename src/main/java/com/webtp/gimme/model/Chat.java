@@ -2,13 +2,14 @@ package com.webtp.gimme.model;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
 import java.util.UUID;
+import jakarta.persistence.CascadeType;
+
 
 @Entity
 @Getter
@@ -18,15 +19,12 @@ public class Chat {
     @GeneratedValue
     private UUID id;
 
-    private String username;
+    private List<String> username;
 
-    private String usernameOfRecipient;
-
-
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Messages> messages;
 
-    public void addMessage(Messages message) {
-        this.messages.add(message);
+    public boolean addMessage(Messages message) {
+        return this.messages.add(message);
     }
 }

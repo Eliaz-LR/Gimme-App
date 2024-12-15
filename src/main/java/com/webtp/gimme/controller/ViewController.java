@@ -5,8 +5,6 @@ import com.webtp.gimme.model.Offer;
 import com.webtp.gimme.model.Search;
 import com.webtp.gimme.security.CustomerDetails;
 import com.webtp.gimme.service.CustomerService;
-import com.webtp.gimme.service.OfferService;
-import com.webtp.gimme.service.PurchaseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,6 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import com.webtp.gimme.service.ChatService;
+import java.util.UUID;
+import com.webtp.gimme.service.PurchaseService;
+import com.webtp.gimme.service.OfferService;
 
 @Controller
 public class ViewController {
@@ -23,10 +26,13 @@ public class ViewController {
     private CustomerService customerService;
 
     @Autowired
-    private OfferService offerService;
+    private ChatService chatService;
 
     @Autowired
     private PurchaseService purchaseService;
+
+    @Autowired
+    private OfferService offerService;
 
     @GetMapping("/")
     public String index() {
@@ -101,5 +107,23 @@ public class ViewController {
     @GetMapping("/create-offer")
     public String createOffer() {
         return "offers-create";
+    }
+
+    @GetMapping("/profile-chat")
+    public String profileChat(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
+        model.addAttribute("customer", customerService.getCustomer(customerDetails.getUsername()));
+        model.addAttribute("chats", (chatService.getChats(customerDetails.getCustomer().getUsername())));
+        return "profile-chat";
+    }
+
+    @GetMapping("/chat/{id}")
+    public String chatting(Model model, @PathVariable UUID id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
+        model.addAttribute("chat", (chatService.getChat(customerDetails.getCustomer().getUsername(), id)));
+        model.addAttribute("username", customerDetails.getCustomer().getUsername());
+        return "chatting";
     }
 }

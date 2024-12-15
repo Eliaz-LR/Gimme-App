@@ -7,9 +7,9 @@ import com.webtp.gimme.model.Messages;
 import com.webtp.gimme.repository.ChatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -19,12 +19,20 @@ public class ChatService {
     private ChatRepository chatRepository;
 
     public List<Chat> getChats(String username) {
-        return chatRepository.findByUsername(username);
+        List<Chat> chats = chatRepository.findAll();
+        for (Chat chat : chats) {
+            if (!chat.getUsername().contains(username)) {
+                chats.remove(chat);
+            } else {
+                chat.getUsername().remove(username);
+            }
+        }
+        return chats;
     }
 
     public Chat getChat(String username, UUID id) {
         Chat chat = chatRepository.findById(id).orElse(null);
-        if (chat != null && chat.getUsername().equals(username)) {
+        if (chat != null && chat.getUsername().contains(username)) {
             return chat;
         } else {
             return null;
@@ -35,13 +43,16 @@ public class ChatService {
         chatRepository.save(chat);
     }
 
-    public void sendMessage(Chat chat, String msg) {
+    public Chat sendMessage(String username, UUID id, String msg) {
         Messages message = new Messages();
         message.setTimestamp(Timestamp.valueOf(LocalDateTime.now()));
         message.setMessage(msg);
-        message.setSender(chat.getUsername());
+        message.setSender(username);
+
+        Chat chat = chatRepository.findById(id).orElse(null);
 
         chat.addMessage(message);
-        chatRepository.save(chat);
+        
+        return chatRepository.save(chat);
     }
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <title>Gimme - Plateforme de Don</title>
+    <link rel="icon" href="/images/icon.png" type="image/png">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="main-content">
+    <div class="chatter-name">
+        <h2 th:text="${chat.username[0]}"></h2>
+    </div>
+    <div class="chat-box">
+        <div th:each="msg : ${chat.messages}">
+            <div class="chat-msg">
+                <p th:text="${msg.sender}"></p>
+                <p th:text="${msg.message}"></p>
+                <p th:text="${msg.timestamp}"></p>
+            </div>
+        </div>
+    </div>
+    <div class="input">
+        <form th:action="@{/customers/{username}/chats/{chatId}(username=${username}, chatId=${chat.id})}" method="POST">
+            <input type="text" name="msg" placeholder="Message" required>
+            <button type="submit" id="submit-button" class="send-btn">Send</button>
+        </form>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>
