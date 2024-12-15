@@ -18,7 +18,7 @@ public class OfferService {
     private OfferRepository offerRepository;
 
     public List<Offer> getOffers() {
-        return offerRepository.findAll();
+        return filterActiveOffers(offerRepository.findAll());
     }
 
     public Offer getOfferByID(UUID id) {
@@ -26,11 +26,11 @@ public class OfferService {
     }
 
     public List<Offer> getOffersByName(String name) {
-        return offerRepository.findByName(name);
+        return filterActiveOffers(offerRepository.findByName(name));
     }
 
     public List<Offer> getOffersByCategory(Offer.Category category) {
-        return offerRepository.findByCategory(category);
+        return filterActiveOffers(offerRepository.findByCategory(category));
     }
 
     public void createOffer(Offer offer) {
@@ -58,12 +58,19 @@ public class OfferService {
     }
 
     public List<Offer> searchOffers(Search search) {
-                return offerRepository.searchOffersByNameOrDescription(
+                return filterActiveOffers(offerRepository.searchOffersByNameOrDescription(
                         search.getSearchText(),
                         search.getCategory(),
                         search.getCondition(),
                         search.getPostcode(),
                         search.getKeywords(),
-                        search.getCanBeSentByPost());
+                        search.getCanBeSentByPost()));
     }
+
+    public List<Offer> filterActiveOffers(List<Offer> offers) {
+        return offers.stream()
+                .filter(Offer::getIsActive)
+                .toList();
+    }
+
 }

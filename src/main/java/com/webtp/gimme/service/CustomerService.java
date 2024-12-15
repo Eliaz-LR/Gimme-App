@@ -58,7 +58,9 @@ public class CustomerService {
     }
 
     public List<Offer> getFavoriteOffers(String username) {
-        return customerRepository.getCustomerByUsername(username).getFavoriteOffers();
+        return customerRepository.getCustomerByUsername(username).getFavoriteOffers().stream()
+                .filter(Offer::getIsActive)
+                .toList();
     }
 
     public Customer addFavoriteOffer(String username, UUID offerId) {

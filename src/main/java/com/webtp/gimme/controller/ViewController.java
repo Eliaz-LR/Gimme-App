@@ -1,7 +1,10 @@
 package com.webtp.gimme.controller;
 
 import com.webtp.gimme.repository.CustomerRepository;
+import com.webtp.gimme.repository.PurchaseRepository;
 import com.webtp.gimme.security.CustomerDetails;
+import com.webtp.gimme.service.CustomerService;
+import com.webtp.gimme.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ViewController {
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private CustomerService customerService;
+
+    @Autowired
+    private PurchaseService purchaseService;
 
     @GetMapping("/")
     public String index() {
@@ -55,8 +61,16 @@ public class ViewController {
     public String profileFavoris(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
-        model.addAttribute("offers", (customerRepository.getCustomerByUsername(customerDetails.getCustomer().getUsername())).getFavoriteOffers());
+        model.addAttribute("offers", (customerService.getFavoriteOffers(customerDetails.getUsername())));
         return "profile-favoris";
+    }
+
+    @GetMapping("/profile-historique")
+    public String profileHistorique(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
+        model.addAttribute("purchases", (purchaseService.getPurchasesByCustomer(customerDetails.getUsername())));
+        return "profile-historique";
     }
 
     @GetMapping("/create-offer")

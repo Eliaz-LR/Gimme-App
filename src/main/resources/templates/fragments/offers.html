@@ -30,6 +30,13 @@
                 </form>
             </div>
 
+            <!-- Bouton d'achat -->
+            <div sec:authorize="isAuthenticated()">
+                <form class="purchase-form" method="POST" th:action="@{/customers/{id}/purchases/{offerId}(id=${username}, offerId=${offer.id})}">
+                    <button type="submit" class="btn">Acheter</button>
+                </form>
+            </div>
+
             <p class="offer-post-option" th:if="${offer.canBeSentByPost}">
                 <strong>Envoi possible par la poste :</strong> Oui
             </p>
