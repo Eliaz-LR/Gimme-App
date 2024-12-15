@@ -60,6 +60,7 @@ public class ViewController {
     public String profileFavoris(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
+        model.addAttribute("customer", customerService.getCustomer(customerDetails.getUsername()));
         model.addAttribute("offers", (customerService.getFavoriteOffers(customerDetails.getUsername())));
         return "profile-favoris";
     }
@@ -74,6 +75,9 @@ public class ViewController {
 
     @GetMapping(value = "/offers", produces = "text/html")
     public String getAllOffersHtml(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
+        model.addAttribute("customer", customerService.getCustomer(customerDetails.getUsername()));
         model.addAttribute("offers", offerService.getOffers());
         return "offers";
     }

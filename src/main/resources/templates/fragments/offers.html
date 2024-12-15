@@ -23,10 +23,9 @@
                 <strong>Code postal :</strong> <span th:text="${offer.postcode}"></span>
             </p>
 
-            <!-- Bouton d'ajout au favoris -->
             <div sec:authorize="isAuthenticated()">
-                <form class="favorite-form" method="POST" th:action="@{/customers/{id}/favoriteOffers/{offerId}(id=${username}, offerId=${offer.id})}">
-                    <button type="submit" class="btn">Ajouter aux favoris</button>
+                <form class="favorite-form" th:action="@{${customer.favoriteOffers.contains(offer) ? '/customers/{customer}/favoriteOffers/{offerId}' : '/customers/{customer}/favoriteOffers/{offerId}'}(customer=${customer.username}, offerId=${offer.id})}" method="POST">
+                    <button type="submit" class="btn" th:text="${customer.favoriteOffers.contains(offer) ? 'Supprimer des favoris' : 'Ajouter aux favoris'}"></button>
                 </form>
             </div>
 
