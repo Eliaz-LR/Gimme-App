@@ -17,11 +17,11 @@
     <section class="offers-results">
         <h2>Résultats de la recherche</h2>
 
-        <div sec:authorize="isAuthenticated()">
-            <form class="search-form" method="POST" th:action="@{/searches?search={search}(search=${searchDto.search})}">
-                <button type="submit" class="btn">Sauvegarder cette recherche</button>
-            </form>
+        <div id="success-message" class="success-message" style="display: none;">
+            <p id="success-text"></p>
         </div>
+
+        <button id="saved-search" type="button" class="btn">Sauvegarder cette recherche</button>
 
         <div th:replace="fragments/offers :: div"></div>
     </section>
@@ -29,5 +29,6 @@
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 
+<script src="js/offers-search.js"></script>
 </body>
 </html>
