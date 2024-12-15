@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +16,7 @@ import com.webtp.gimme.service.OfferService;
 
 import java.util.UUID;
 
-@Controller
+@RestController
 @RequestMapping("/offers")
 public class OfferController {
 
@@ -28,13 +27,6 @@ public class OfferController {
     @ResponseBody
     public List<Offer> getAllOffers() {
         return offerService.getOffers();
-    }
-
-    @GetMapping(produces = "text/html")
-    public String getAllOffersHtml(Model model) {
-        List<Offer> offers = offerService.getOffers();
-        model.addAttribute("offers", offers);
-        return "offers";
     }
 
     @GetMapping("/{id}")

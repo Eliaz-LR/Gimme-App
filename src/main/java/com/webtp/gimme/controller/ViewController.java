@@ -2,6 +2,7 @@ package com.webtp.gimme.controller;
 
 import com.webtp.gimme.security.CustomerDetails;
 import com.webtp.gimme.service.CustomerService;
+import com.webtp.gimme.service.OfferService;
 import com.webtp.gimme.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,6 +16,9 @@ public class ViewController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private OfferService offerService;
 
     @Autowired
     private PurchaseService purchaseService;
@@ -43,10 +47,7 @@ public class ViewController {
     }
 
     @GetMapping("/profile-delete")
-    public String profileDelete(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
-        model.addAttribute("username", customerDetails.getCustomer().getUsername());
+    public String profileDelete() {
         return "profile-delete";
     }
 
@@ -69,6 +70,12 @@ public class ViewController {
         CustomerDetails customerDetails = (CustomerDetails) authentication.getPrincipal();
         model.addAttribute("purchases", (purchaseService.getPurchasesByCustomer(customerDetails.getUsername())));
         return "profile-historique";
+    }
+
+    @GetMapping(value = "/offers", produces = "text/html")
+    public String getAllOffersHtml(Model model) {
+        model.addAttribute("offers", offerService.getOffers());
+        return "offers";
     }
 
     @GetMapping("/create-offer")
