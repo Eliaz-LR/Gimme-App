@@ -15,6 +15,20 @@
 <main class="search-container">
     <!-- Section des résultats d'offres -->
     <section class="offers-results">
+
+        <div>
+            <h2>Filtrer votre recherche</h2>
+            <form class="search-form" th:action="@{/offers?search={search}&category={category}&condition={condition}(search=${searchDto.search}, category=${searchDto.category}, condition=${searchDto.condition})}">
+                <div id="category">
+                    <label for="category">Catégorie :</label>
+                    <select name="category" id="category">
+                        <option value="">Toutes les catégories</option>
+                        <option th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Rechercher</button>
+        </div>
+
         <h2>Résultats de la recherche</h2>
 
         <div id="success-message" class="success-message" style="display: none;">

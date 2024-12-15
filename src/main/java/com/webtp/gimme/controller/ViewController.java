@@ -1,6 +1,7 @@
 package com.webtp.gimme.controller;
 
 import com.webtp.gimme.dto.request.OfferSearchRequestDto;
+import com.webtp.gimme.model.Offer;
 import com.webtp.gimme.model.Search;
 import com.webtp.gimme.security.CustomerDetails;
 import com.webtp.gimme.service.CustomerService;
@@ -93,6 +94,7 @@ public class ViewController {
         model.addAttribute("customer", customerService.getCustomer(customerDetails.getUsername()));
         model.addAttribute("offers", offerService.searchOffers(new Search(offerSearchRequestDto)));
         model.addAttribute("searchDto", offerSearchRequestDto);
+        model.addAttribute("categories", Offer.Category.values());
         return "offers-search";
     }
 
