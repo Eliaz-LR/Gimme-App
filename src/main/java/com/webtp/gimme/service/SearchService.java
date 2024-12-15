@@ -1,5 +1,6 @@
 package com.webtp.gimme.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,9 @@ public class SearchService {
     public Search getSearchById(String searchId) {
         UUID searchIdUUID = UUID.fromString(searchId);
         return searchRepository.findById(searchIdUUID).orElse(null);
+    }
+
+    public List<Search> getAllSavedSearches() {
+        return searchRepository.findAll();
     }
 }

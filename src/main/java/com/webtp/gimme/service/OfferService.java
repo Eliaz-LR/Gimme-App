@@ -17,6 +17,9 @@ public class OfferService {
     @Autowired
     private OfferRepository offerRepository;
 
+    @Autowired
+    private SearchService searchService;
+
     public List<Offer> getOffers() {
         return filterActiveOffers(offerRepository.findAll());
     }
@@ -35,6 +38,12 @@ public class OfferService {
 
     public void createOffer(Offer offer) {
         offerRepository.save(offer);
+        
+        for (Search search : searchService.getAllSavedSearches()) {
+            if (search.matches(offer)) {
+                throw new RuntimeException("Offer matches saved search : Notifications not implemented");
+            }
+        }
     }
 
     public boolean deleteOfferByID(UUID id) {
