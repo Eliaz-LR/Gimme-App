@@ -1,5 +1,7 @@
 package com.webtp.gimme.service;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +31,14 @@ public class SearchService {
         customer.getSavedSearches().remove(search);
         customerRepository.save(customer);
         searchRepository.delete(search);
+    }
+
+    public Iterable<Search> getSearches(Customer customer) {
+        return searchRepository.findByCustomer(customer);
+    }
+
+    public Search getSearchById(String searchId) {
+        UUID searchIdUUID = UUID.fromString(searchId);
+        return searchRepository.findById(searchIdUUID).orElse(null);
     }
 }

@@ -23,7 +23,7 @@ public class Customer {
 
     private String name;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
     private List<Search> savedSearches;
 
     @OneToMany(fetch = FetchType.EAGER)

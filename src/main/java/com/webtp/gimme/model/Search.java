@@ -1,6 +1,7 @@
 package com.webtp.gimme.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -10,6 +11,7 @@ import lombok.Setter;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.webtp.gimme.dto.request.OfferSearchRequestDto;
 
 @Entity
@@ -34,6 +36,7 @@ public class Search {
     private UUID id;
 
     @ManyToOne
+    @JsonIgnore
     private Customer customer;
 
     private String searchText;
