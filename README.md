@@ -12,4 +12,4 @@ MacOS/Linux: \
 Windows: \
 ./gradlew.bat bootRun
 
-Pour chatter avec un utilisateur il faut d'abord creer le chat avec l'endpoint associé (Pas implementer dans le front)
+The chat feature is not implemented in the front-end.
